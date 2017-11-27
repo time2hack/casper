@@ -47,16 +47,7 @@ into the {body} of the default.hbs template --}}
 
             <section class="post-full-content">
                 {{content}}
-                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                <!-- new_2017_responsive -->
-                <ins class="adsbygoogle"
-                    style="display:block"
-                    data-ad-client="ca-pub-1830015441649630"
-                    data-ad-slot="3501574357"
-                    data-ad-format="auto"></ins>
-                <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
+                {{> "ad"}}
             </section>
 
             {{!-- Email subscribe form at the bottom of the page --}}
@@ -64,7 +55,8 @@ into the {body} of the default.hbs template --}}
             <section class="subscribe-form">
                 <h3 class="subscribe-form-title">Subscribe to {{@site.title}}</h3>
                 <p>Get the latest posts delivered right to your inbox</p>
-                {{subscribe_form placeholder="youremail@example.com"}}
+                {{!-- {{subscribe_form placeholder="youremail@example.com"}} --}}
+                {{> "subscribe-form"}}
             </section>
             {{/if}}
 

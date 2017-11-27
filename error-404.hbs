@@ -36,10 +36,11 @@ It's a good idea to keep this template as minimal as possible in terms of both f
                     <p class="error-description">{{message}}</p>
                     <a class="error-link" href="{{@site.url}}">Go to the front page →</a>
                 </section>
+                <center>
+                    {{> "ad"}}
+                </center>
             </div>
         </main>
-
-        {{> "ad"}}
 
         {{#get "posts" limit="3"}}
         <aside class="outer">
@@ -52,6 +53,16 @@ It's a good idea to keep this template as minimal as possible in terms of both f
             </div>
         </aside>
         {{/get}}
+
+        {{!-- Email subscribe form at the bottom of the page --}}
+        {{#if @labs.subscribers}}
+        <section class="subscribe-form">
+            <h3 class="subscribe-form-title">Subscribe to {{@blog.title}}</h3>
+            <p>Get the latest posts delivered right to your inbox</p>
+            {{!-- {{subscribe_form placeholder="youremail@example.com"}} --}}
+            {{> "subscribe-form"}}
+        </section>
+        {{/if}}
 
     </div>
 </body>
