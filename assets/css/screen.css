@@ -65,6 +65,10 @@ body {
     flex-grow: 1;
 }
 
+.margin-10 {
+    margin: 10px;
+}
+
 /* Full width page blocks */
 .outer {
     position: relative;

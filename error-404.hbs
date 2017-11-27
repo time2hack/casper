@@ -36,11 +36,12 @@ It's a good idea to keep this template as minimal as possible in terms of both f
                     <p class="error-description">{{message}}</p>
                     <a class="error-link" href="{{@site.url}}">Go to the front page →</a>
                 </section>
-                <center>
-                    {{> "ad"}}
-                </center>
             </div>
         </main>
+
+        <center class="margin-10">
+            {{> "ad"}}
+        </center>
 
         {{#get "posts" limit="3"}}
         <aside class="outer">
