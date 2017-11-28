@@ -1229,13 +1229,18 @@ make sure this only happens on large viewports / desktop-ish devices.
     margin: 0;
 }
 
-.post-full-content a {
+.post-template .kg-card-markdown > p:first-child {
+    font-size: 1.25em;
+    line-height: 1.5em;
+}
+
+.post-full-content a:not(.gh-btn) {
     color: #000;
     word-break: break-word;
     box-shadow: var(--blue) 0 -1px 0 inset;
 }
 
-.post-full-content a:hover {
+.post-full-content a:not(.gh-btn):hover {
     color: var(--blue);
     text-decoration: none;
 }
@@ -1396,6 +1401,88 @@ pre .tooltip:hover:after {
   top: 25px;
   width: 390px;
   z-index: 100;
+}
+
+.pln {
+    color:#000
+}
+@media screen {
+    .str {
+        color:#080;
+    }
+    .kwd {
+        color:#008;
+    }
+    .com {
+        color:#800;
+    }
+    .typ {
+        color:#606;
+    }
+    .lit {
+        color:#066;
+    }
+    .pun,.opn,.clo {
+        color:#660;
+    }
+    .tag {
+        color:#008;
+    }
+    .atn {
+        color:#606;
+    }
+    .atv {
+        color:#080;
+    }
+    .dec,.var {
+        color:#606;
+    }
+    .fun {
+        color:red;
+    }
+}
+@media print,projection {
+    .str {
+        color:#060;
+    }
+    .kwd {
+        color:#006;
+        font-weight:700;
+    }
+    .com {
+        color:#600;
+        font-style:italic;
+    }
+    .typ {
+        color:#404;
+        font-weight:700;
+    }
+    .lit {
+        color:#044;
+    }
+    .pun,.opn,.clo {
+        color:#440;
+    }
+    .tag {
+        color:#006;
+        font-weight:700;
+    }
+    .atn {
+        color:#404;
+    }
+    .atv {
+        color:#060;
+    }
+}
+ol.linenums {
+    margin-top:0;
+    margin-bottom:0
+}
+li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8 {
+    list-style-type:none;
+}
+li.L1,li.L3,li.L5,li.L7,li.L9 {
+    background:#eee;
 }
 
 /* Pretty printing styles. Used with prettify.js. */
@@ -1566,7 +1653,7 @@ pre .dec, code .dec { color: #3387CC; } /* decimal - blue */
 }
 
 /* Tables */
-.post-full-content .kg-card-markdown > table {
+.post-full-content table:not(.highlight) {
     display: inline-block;
     overflow-x: auto;
     margin: 0.5em 0 2.5em;
@@ -1580,7 +1667,7 @@ pre .dec, code .dec { color: #3387CC; } /* decimal - blue */
     vertical-align: top;
 }
 
-.post-full-content .kg-card-markdown > table {
+.post-full-content table:not(.highlight) {
     -webkit-overflow-scrolling: touch;
     background: radial-gradient(ellipse at left, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 75%) 0 center, radial-gradient(ellipse at right, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 75%) 100% center;
     background-attachment: scroll, scroll;
@@ -1588,20 +1675,20 @@ pre .dec, code .dec { color: #3387CC; } /* decimal - blue */
     background-repeat: no-repeat;
 }
 
-.post-full-content .kg-card-markdown > table td:first-child {
+.post-full-content table:not(.highlight) td:first-child {
     background-image: linear-gradient(to right, rgba(255,255,255, 1) 50%, rgba(255,255,255, 0) 100%);
     background-size: 20px 100%;
     background-repeat: no-repeat;
 }
 
-.post-full-content .kg-card-markdown > table td:last-child {
+.post-full-content table:not(.highlight) td:last-child {
     background-image: linear-gradient(to left, rgba(255,255,255, 1) 50%, rgba(255,255,255, 0) 100%);
     background-position: 100% 0;
     background-size: 20px 100%;
     background-repeat: no-repeat;
 }
 
-.post-full-content .kg-card-markdown > table th {
+.post-full-content table:not(.highlight) th {
     color: var(--darkgrey);
     font-size: 1.2rem;
     font-weight: 700;
@@ -1611,8 +1698,8 @@ pre .dec, code .dec { color: #3387CC; } /* decimal - blue */
     background-color: color(var(--whitegrey) l(+4%));
 }
 
-.post-full-content .kg-card-markdown > table th,
-.post-full-content .kg-card-markdown > table td {
+.post-full-content table:not(.highlight) th,
+.post-full-content table:not(.highlight) td {
     padding: 6px 12px;
     border: color(var(--whitegrey) l(-1%) s(-5%)) 1px solid;
 }
