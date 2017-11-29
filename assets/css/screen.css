@@ -1344,7 +1344,7 @@ Usage (In Ghost editor):
     overflow-x: auto;
     margin: 1.5em 0 3em;
     padding: 20px;
-    /* max-width: 100%; */
+    max-width: 100%;
     /* border: color(var(--darkgrey) l(-10%)) 1px solid; */
     /* color: var(--whitegrey); */
     font-size: 1.7rem;
@@ -1653,6 +1653,9 @@ pre .dec, code .dec { color: #3387CC; } /* decimal - blue */
 }
 
 /* Tables */
+.post-full-content .gist {
+    max-width: 100%;
+}
 .post-full-content table:not(.highlight) {
     display: inline-block;
     overflow-x: auto;
