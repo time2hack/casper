@@ -2631,7 +2631,7 @@ pre .dec, code .dec { color: #3387CC; } /* decimal - blue */
     transition: opacity 200ms ease-in;
     pointer-events: none;
 
-    backdrop-filter: blur(3px);
+    /* backdrop-filter: blur(3px); */
 }
 
 .subscribe-overlay:target {
