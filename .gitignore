@@ -20,7 +20,7 @@ package-lock.json
 projectFilesBackup
 
 .DS_Store
-
+ghost-test/
 dist/
 
 config.json
