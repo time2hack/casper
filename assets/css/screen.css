@@ -1327,6 +1327,11 @@ Usage (In Ghost editor):
     margin-bottom: 0;
 }
 
+.post-full-content table pre,
+.post-full-content table code {
+    font-size: 1.1em;
+}
+
 .post-full-content code {
     padding: 0 5px 2px;
     font-size: 0.8em;
