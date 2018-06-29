@@ -44,6 +44,10 @@ body {
     border-radius: 100%;
 }
 
+.loader {
+    background-image: url(//res.cloudinary.com/time2hack/image/upload/loader.svg);
+}
+
 a.gh-btn {
     color: #fff;
     box-shadow: none;
@@ -820,8 +824,11 @@ The knock-on effect of this is ugly browser-scroll bars at the bottom, so 80px o
 .post-card-image {
     width: 100%;
     height: 200px;
-    background: var(--lightgrey) no-repeat center center;
     object-fit: cover;
+    background-color: var(--lightgrey);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .post-card-content-link {
@@ -1118,7 +1125,10 @@ make sure this only happens on large viewports / desktop-ish devices.
 
 .post-full-image {
     margin: 0 -10vw -165px;
-    background: var(--lightgrey) center center;
+    height: 800px;
+    background-color: var(--lightgrey);
+    background-position: center center;
+    background-size: cover;
     border-radius: 5px;
     overflow: hidden;
 }
