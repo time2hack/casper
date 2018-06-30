@@ -33,3 +33,56 @@ into the {body} of the default.hbs template --}}
 
     </div>
 </main>
+{{!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs --}}
+{{#contentFor "scripts"}}
+<script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    var ticking = false;
+
+    function onScroll() {
+        requestTick();
+    }
+
+    function onResize() {
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function lazyLoad() {
+        var notLoaded = [].slice.call(document.querySelectorAll('.loader'));
+        for(var i = 0; i < notLoaded.length; i++) {
+            var el = notLoaded[i];
+            var pos = el.getBoundingClientRect();
+            if (
+                (pos.top >= 0 && pos.top <= window.innerHeight + 50)
+                || (pos.bottom >= 0 && pos.bottom <= window.innerHeight)
+            ) {
+                el.style.backgroundImage = 'url(' + el.getAttribute('data-image') + ')';
+                el.classList.remove('loader');
+            }
+        }
+    }
+
+    function update() {
+        lazyLoad();
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+{{/contentFor}}

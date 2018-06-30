@@ -211,6 +211,21 @@ $(document).ready(function () {
         ticking = true;
     }
 
+    function lazyLoad() {
+        var notLoaded = [].slice.call(document.querySelectorAll('.loader'));
+        for(var i = 0; i < notLoaded.length; i++) {
+            var el = notLoaded[i];
+            var pos = el.getBoundingClientRect();
+            if (
+                (pos.top >= 0 && pos.top <= window.innerHeight + 50)
+                || (pos.bottom >= 0 && pos.bottom <= window.innerHeight)
+            ) {
+                el.style.backgroundImage = 'url(' + el.getAttribute('data-image') + ')';
+                el.classList.remove('loader');
+            }
+        }
+    }
+
     function update() {
         var trigger = title.getBoundingClientRect().top + window.scrollY;
         var triggerOffset = title.offsetHeight + 35;
@@ -225,6 +240,8 @@ $(document).ready(function () {
 
         progressBar.setAttribute('max', progressMax);
         progressBar.setAttribute('value', lastScrollY);
+
+        lazyLoad();
 
         ticking = false;
     }
