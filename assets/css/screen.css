@@ -2217,6 +2217,10 @@ pre .dec, code .dec { color: #3387CC; } /* decimal - blue */
     transform: translate3d(0, -120%, 0);
 }
 
+.floating-header.minimal {
+    height: auto;
+}
+
 .floating-active {
     visibility: visible;
     transition: all 500ms cubic-bezier(0.22, 1, 0.27, 1);
@@ -2371,6 +2375,9 @@ pre .dec, code .dec { color: #3387CC; } /* decimal - blue */
 @media (max-width: 900px) {
     .floating-header {
         height: 40px;
+    }
+    .floating-header.minimal {
+        height: auto;
     }
     .floating-header-title,
     .floating-header-logo {

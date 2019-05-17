@@ -26,7 +26,7 @@ into the {body} of the default.hbs template --}}
                 </section>
                 <h1 class="post-full-title">{{title}}</h1>
             </header>
-
+            <!--  {{img_url og_image}} -->
             {{#if feature_image}}
             <figure class="post-full-image">
                 {{!-- This is a responsive image, it loads different sizes depending on device
@@ -166,7 +166,7 @@ into the {body} of the default.hbs template --}}
 </aside>
 
 {{!-- Floating header which appears on-scroll, included from includes/floating-header.hbs --}}
-{{> floating-header}}
+{{> floating-header-minimal}}
 
 {{/post}}
 
@@ -241,7 +241,7 @@ $(document).ready(function () {
         progressBar.setAttribute('max', progressMax);
         progressBar.setAttribute('value', lastScrollY);
 
-        lazyLoad();
+        //lazyLoad();
 
         ticking = false;
     }
