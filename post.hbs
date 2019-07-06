@@ -25,6 +25,11 @@ into the {body} of the default.hbs template --}}
                     {{/primary_tag}}
                 </section>
                 <h1 class="post-full-title">{{title}}</h1>
+                {{#if date !== updated_at }}
+                <section class="post-trivial-meta">
+                    <time class="post-trivial-meta-date" datetime="{{updated_at format="YYYY-MM-DD"}}">Last updated at {{updated_at format="D MMMM YYYY"}}</time>
+                </section>
+                {{/if}}
             </header>
             <!--  {{img_url og_image}} -->
             {{#if feature_image}}

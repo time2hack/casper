@@ -48,7 +48,7 @@
                             <img class="author-profile-image" src="{{img_url profile_image size="xs"}}" alt="{{name}}" />
                         </a>
                     {{else}}
-                        <a href="{{url}}" class="static-avatar author-profile-image">{{> "icons/avatar"}}</a>
+                        <a href="{{url}}" class="static-avatar author-profile-image" title="{{name}}"  aria-label="{{name}}">{{> "icons/avatar"}}</a>
                     {{/if}}
                 </li>
             {{/foreach}}

@@ -855,7 +855,7 @@ The knock-on effect of this is ugly browser-scroll bars at the bottom, so 80px o
 .post-card-tags {
     display: block;
     margin-bottom: 4px;
-    color: var(--midgrey);
+    color: var(--darkgrey);
     font-size: 1.2rem;
     line-height: 1.15em;
     font-weight: 500;
@@ -1008,7 +1008,7 @@ The knock-on effect of this is ugly browser-scroll bars at the bottom, so 80px o
 .reading-time {
     flex-shrink: 0;
     margin-left: 20px;
-    color: var(--midgrey);
+    color: var(--darkgrey);
     font-size: 1.2rem;
     line-height: 33px;
     font-weight: 500;
