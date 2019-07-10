@@ -45,7 +45,12 @@ body {
 }
 
 .loader {
+    background-size: cover;
+    background-position: center center;
     background-image: url(//res.cloudinary.com/time2hack/image/upload/loader.svg);
+}
+.loader > img {
+    display: none;
 }
 .github-icon {
     width: 1em;

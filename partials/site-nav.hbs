@@ -19,11 +19,11 @@
             {{#if @site.twitter}}
                 <a class="social-link social-link-tw" href="{{twitter_url @site.twitter}}" title="Twitter" target="_blank" rel="noopener">{{> "icons/twitter"}}</a>
             {{/if}}
+            {{!-- {{#if @labs.subscribers}} --}}
+                {{!-- <a class="subscribe-button" href="#subscribe">Subscribe</a> --}}
+            {{!-- {{else}} --}}
+                <a class="social-link social-link-rss" href="{{@blog.url}}/rss/" target="_blank" title="RSS Feed" rel="noopener">{{> "icons/rss"}}</a>
+            {{!-- {{/if}} --}}
         </div>
-        {{!-- {{#if @labs.subscribers}} --}}
-            {{!-- <a class="subscribe-button" href="#subscribe">Subscribe</a> --}}
-        {{!-- {{else}} --}}
-            <a class="rss-button" href="{{@blog.url}}/rss/" target="_blank" rel="noopener">{{> "icons/rss"}}</a>
-        {{!-- {{/if}} --}}
     </div>
 </nav>

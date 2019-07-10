@@ -64,7 +64,7 @@ $(document).ready(function () {
                 (pos.top >= 0 && pos.top <= window.innerHeight + 50)
                 || (pos.bottom >= 0 && pos.bottom <= window.innerHeight)
             ) {
-                el.style.backgroundImage = 'url(' + el.getAttribute('data-image') + ')';
+                el.src = el.getAttribute('data-image');
                 el.classList.remove('loader');
             }
         }
