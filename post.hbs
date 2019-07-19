@@ -178,13 +178,86 @@ into the {body} of the default.hbs template --}}
 
 {{!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs --}}
 {{#contentFor "scripts"}}
+{{!-- jQuery + Fitvids, which makes all video embeds responsive --}}
+<script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous">
+</script>
+
+<script type="text/javascript" src="{{asset "built/jquery.fitvids.js"}}"></script>
+
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+<script id="all-custom-js-functions">
+var _toArray = function(nodeList) { return Array.prototype.slice.call(nodeList); };
+var _getAll = function(query) { return toArray(document.querySelectorAll(query)); };
+
+var _pretify = function(block) {
+  window.PR && (function(block){
+	block.classList.add('prettyprint');
+    PR.prettyPrint();
+  })(block)
+}
+var preHeadFoot = function(block) {
+    var complete = block.getAttribute('complete');
+    var header = block.getAttribute('header');
+    var footer = block.getAttribute('footer');
+    if(complete){
+
+        var d = document.createElement('div');
+        d.classList.add('footer');
+        var a = document.createElement('a');
+        a.setAttribute('href', complete);
+        a.setAttribute('target', '_blank');
+
+        d.appendChild(a);
+
+        block.appendChild(d);
+    }
+    if(header && header !== ''){
+        var d = document.createElement('div');
+        d.classList.add('footer');
+        d.innerHTML = header;
+        block.insertBefore(d, block.firstChild);
+    }
+    if(footer && footer !== ''){
+        var d = document.createElement('div');
+        d.classList.add('footer');
+        d.innerHTML = footer;
+        block.appendChild(d);
+    }
+}
+</script>
 <script>
 
 // NOTE: Scroll performance is poor in Safari
 // - this appears to be due to the events firing much more slowly in Safari.
 //   Dropping the scroll event and using only a raf loop results in smoother
 //   scrolling but continuous processing even when not scrolling
-$(document).ready(function () {
+document.addEventListener("DOMContentLoaded", function(event) {
+
+    // Start CodeBlock Enriching
+    var codeBlocks = _getAll('pre, code.hljs');
+    codeBlocks.forEach && codeBlocks.forEach(function(block, i) {
+        var remotePath = block.getAttribute('remotepath');
+        if(remotePath){
+            fetch(remotePath).then(function(response){
+                return response.text();
+            }).then(function(data){
+                block.innerHTML = data;
+            }).then(function() {
+            _pretify(block);
+            preHeadFoot(block);
+        });
+        } else {
+            _pretify(block);
+            preHeadFoot(block);
+        }
+    });
+    // End CodeBlock Enriching
+
+
+
     // Start fitVids
     var $postContent = $(".post-full-content");
     $postContent.fitVids();
