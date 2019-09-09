@@ -64,7 +64,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 (pos.top >= 0 && pos.top <= window.innerHeight + 50)
                 || (pos.bottom >= 0 && pos.bottom <= window.innerHeight)
             ) {
-                el.src = el.getAttribute('data-image');
+                var img = el.querySelector('img');
+                img.setAttribute('src', img.getAttribute('data-src'));
+                img.setAttribute('srcset', img.getAttribute('data-srcset'));
                 el.classList.remove('loader');
             }
         }
