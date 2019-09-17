@@ -2558,6 +2558,7 @@ pre .dec, code .dec { color: #3387CC; } /* decimal - blue */
     flex-grow: 1;
     align-items: flex-start;
     justify-content: start;
+    justify-content: flex-start;
     padding: 20px;
 }
 
