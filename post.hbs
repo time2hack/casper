@@ -209,7 +209,7 @@ var preHeadFoot = function(block) {
         var a = document.createElement('a');
         a.setAttribute('href', complete);
         a.setAttribute('target', '_blank');
-
+        a.innerText = complete;
         d.appendChild(a);
 
         block.appendChild(d);
@@ -244,7 +244,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             fetch(remotePath).then(function(response){
                 return response.text();
             }).then(function(data){
-                block.innerHTML = data;
+                block.innerText = data;
             }).then(function() {
             _pretify(block);
             preHeadFoot(block);
