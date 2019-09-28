@@ -1251,7 +1251,7 @@ make sure this only happens on large viewports / desktop-ish devices.
     margin: 0;
 }
 
-.post-template .kg-card-markdown > p:first-child {
+.post-full-content > p:first-child {
     font-size: 1.25em;
     line-height: 1.5em;
 }
@@ -2457,7 +2457,7 @@ pre .dec, code .dec { color: #3387CC; } /* decimal - blue */
 }
 
 .post-full-content figure img {
-    margin: 0;
+    margin: 0 auto;
 }
 
 .post-full-content figcaption {
