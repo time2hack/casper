@@ -122,6 +122,22 @@ into the {body} of the default.hbs template --}}
 
 {{!-- Links to Previous/Next posts --}}
 <aside class="read-next outer">
+    <div class="inner post-pagination">
+        <div class="read-next-feed-pages">
+            <div class="previous">
+                {{!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs --}}
+                {{#prev_post}}
+                    {{> "post-card-in-pagination"}}
+                {{/prev_post}}
+            </div>
+            <div class="next">
+                {{!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs --}}
+                {{#next_post}}
+                    {{> "post-card-in-pagination"}}
+                {{/next_post}}
+            </div>
+        </div>
+    </div>
     <div class="inner">
         <div class="read-next-feed">
             {{#if primary_tag}}

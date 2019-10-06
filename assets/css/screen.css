@@ -2067,6 +2067,10 @@ pre .dec, code .dec { color: #3387CC; } /* decimal - blue */
 /* 7.4. Related posts
 /* ---------------------------------------------------------- */
 
+.post-pagination {
+    display: none;
+}
+
 .read-next-feed {
     display: flex;
     flex-wrap: wrap;
