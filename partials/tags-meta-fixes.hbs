@@ -1,15 +1,13 @@
 {{#is "tag"}}
   {{#tag}}
-    {{#if description}}
-    {{else}}
+    {{^if description}}
       <meta name="description" content="A collection of posts about {{name}} on {{@site.title}}" />
       <meta property="og:description" content="A collection of posts about {{name}} on {{@site.title}}" />
       <meta name="twitter:description" content="A collection of posts about {{name}} on {{@site.title}}" />
     {{/if}}
 
-    
-    {{#if feature_image}}
-    {{else}}
+
+    {{^if feature_image}}
       <meta name="og:image" content="{{feature_image}}">
       <meta name="twitter:image" content="{{feature_image}}">
     {{/if}}
