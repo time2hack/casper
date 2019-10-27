@@ -1,0 +1,7 @@
+.post-full-tags {
+  display: block;
+}
+.post-full-title,
+.post-full-tags {
+  text-align: center;
+}

@@ -1,0 +1,1 @@
+{"version":3,"sources":["t2h.css"],"names":[],"mappings":"AAAA,gBACE,aACF,CACA,iCAEE,iBACF","file":"t2h.css","sourcesContent":[".post-full-tags {\n  display: block;\n}\n.post-full-title,\n.post-full-tags {\n  text-align: center;\n}\n"]}
