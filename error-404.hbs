@@ -5,66 +5,100 @@ It's a good idea to keep this template as minimal as possible in terms of both f
 
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>{{meta_title}}</title>
-    <meta name="HandheldFriendly" content="True" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="{{asset "built/screen.css"}}" />
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>{{meta_title}}</title>
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="{{asset "built/screen.css"}}" />
+  <link rel="stylesheet" type="text/css" href="{{asset "built/t2h.css"}}" />
 </head>
+
 <body class="error-template">
-    <div class="site-wrapper">
+  <div class="site-wrapper">
 
-        <header class="site-header outer {{#if feature_image}}" style="background-image: url({{feature_image}}){{else}}no-image{{/if}}">
-            <div class="inner">
-                <nav class="site-nav-center">
-                    {{#if @site.logo}}
-                        <a class="site-nav-logo" href="{{@site.url}}"><img src="{{img_url @site.logo size="xs"}}" alt="{{@site.title}}" /></a>
-                    {{else}}
-                        <a class="site-nav-logo" href="{{@site.url}}">{{@site.title}}</a>
-                    {{/if}}
-                </nav>
-            </div>
-        </header>
+    <header class="site-header outer {{#if feature_image}}"
+      style="background-image: url({{feature_image}}){{else}}no-image{{/if}}">
+      <div class="inner">
+        <nav class="site-nav-center">
+          {{#if @site.logo}}
+          <a class="site-nav-logo" href="{{@site.url}}"><img src="{{img_url @site.logo size="xs"}}"
+              alt="{{@site.title}}" /></a>
+          {{else}}
+          <a class="site-nav-logo" href="{{@site.url}}">{{@site.title}}</a>
+          {{/if}}
+        </nav>
+      </div>
+    </header>
 
-        <main id="site-main" class="site-main outer">
-            <div class="inner">
+    <main id="site-main" class="site-main outer">
+      <div class="inner">
 
-                <section class="error-message">
-                    <h1 class="error-code">{{statusCode}}</h1>
-                    <p class="error-description">{{message}}</p>
-                    <a class="error-link" href="{{@site.url}}">Go to the front page →</a>
-                </section>
-            </div>
-        </main>
-
-        <center class="margin-10">
-            {{> "ad"}}
-        </center>
-
-        {{#get "posts" limit="3"}}
-        <aside class="outer">
-            <div class="inner">
-                <div class="post-feed">
-                    {{#foreach posts}}
-                        {{> "post-card"}}
-                    {{/foreach}}
-                </div>
-            </div>
-        </aside>
-        {{/get}}
-
-        {{!-- Email subscribe form at the bottom of the page --}}
-        {{#if @labs.subscribers}}
-        <section class="subscribe-form">
-            <h3 class="subscribe-form-title">Subscribe to {{@site.title}}</h3>
-            <p>Get the latest posts delivered right to your inbox</p>
-            {{!-- {{subscribe_form placeholder="youremail@example.com"}} --}}
-            {{> "subscribe-form"}}
+        <section class="error-message">
+          <h1 class="error-code">{{statusCode}}</h1>
+          <p class="error-description">{{message}}</p>
+          <a class="error-link" href="{{@site.url}}">Go to the front page →</a>
         </section>
+      </div>
+    </main>
+
+    <center class="margin-10">
+      {{> "ad"}}
+    </center>
+
+    {{#get "posts" limit="3"}}
+    <aside class="outer">
+      <div class="inner">
+        <div class="post-feed">
+          {{#foreach posts}}
+          {{> "post-card"}}
+          {{/foreach}}
+        </div>
+      </div>
+    </aside>
+    {{/get}}
+
+    {{!-- The big email subscribe modal content --}}
+    {{#if @labs.members}}
+    <div class="subscribe-success-message">
+      <a class="subscribe-close" href="javascript:;"></a>
+      You've successfully subscribed to {{@site.title}}!
+    </div>
+
+    <div id="subscribe" class="subscribe-overlay">
+      <a class="subscribe-close" href="#"></a>
+      <div class="subscribe-overlay-content">
+        {{#if @site.logo}}
+        <img class="subscribe-overlay-logo" src="{{@site.logo}}" alt="{{@site.title}}" />
         {{/if}}
+        <div class="subscribe-form">
+          <h1 class="subscribe-overlay-title">Subscribe to {{@site.title}}</h1>
+          <p class="subscribe-overlay-description">Stay up to date! Get all the latest & greatest posts delivered
+            straight to your inbox</p>
+          <form data-members-form="subscribe">
+            <div class="form-group">
+              <input class="subscribe-email" data-members-email placeholder="youremail@example.com"
+                autocomplete="false" />
+              <button class="button primary" type="submit">
+                <span class="button-content">Subscribe</span>
+                <span class="button-loader">{{> "icons/loader"}}</span>
+              </button>
+            </div>
+            <div class="message-success">
+              <strong>Great!</strong> Check your inbox and click the link to confirm your subscription.
+            </div>
+            <div class="message-error">
+              Please enter a valid email address!
+            </div>
+          </form>
+        </div>
+      </div>
+      </aside>
+      {{/if}}
 
     </div>
 </body>
+
 </html>
