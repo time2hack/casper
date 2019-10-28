@@ -87,6 +87,12 @@ pre .header a:hover, pre .footer a:hover {
 
 /* ------------------------------- */
 
+.post-card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .post-full-tags {
   display: block;
 }
