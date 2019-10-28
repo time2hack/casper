@@ -1,0 +1,61 @@
+{{#if primary_tag}}
+<section class="post-full-tags">
+    {{#primary_tag}}
+    <a href="{{url}}">{{name}}</a>
+    {{/primary_tag}}
+</section>
+{{/if}}
+
+<h1 class="post-full-title">{{title}}</h1>
+
+<div class="post-full-byline">
+
+    <section class="post-full-byline-content">
+
+        <ul class="author-list">
+            {{#foreach authors}}
+            <li class="author-list-item">
+
+                <div class="author-card">
+                    {{#if profile_image}}
+                    <img class="author-profile-image" src="{{img_url profile_image size="xs"}}" alt="{{name}}" />
+                    {{else}}
+                    <div class="author-profile-image">{{> "icons/avatar"}}</div>
+                    {{/if}}
+                    <div class="author-info">
+                        {{#if bio}}
+                        <div class="bio">
+                            <h2>{{name}}</h2>
+                            <p>{{bio}}</p>
+                            <p><a href="{{url}}">More posts</a> by {{name}}.</p>
+                        </div>
+                        {{else}}
+                        <h2>{{name}}</h2>
+                        <p>Read <a href="{{url}}">more posts</a> by this author.</p>
+                        {{/if}}
+                    </div>
+                </div>
+
+                {{#if profile_image}}
+                <a href="{{url}}" class="author-avatar">
+                    <img class="author-profile-image" src="{{img_url profile_image size="xs"}}" alt="{{name}}" />
+                </a>
+                {{else}}
+                <a href="{{url}}" class="author-avatar author-profile-image">{{> "icons/avatar"}}</a>
+                {{/if}}
+
+            </li>
+            {{/foreach}}
+        </ul>
+
+        <section class="post-full-byline-meta">
+            <h4 class="author-name">{{authors}}</h4>
+            <div class="byline-meta-content">
+                {{!-- <time class="byline-meta-date" datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time> --}}
+                <span class="byline-meta-date-helper">Last updated on </span><time class="byline-meta-date" datetime="{{date updated_at format="YYYY-MM-DD"}}">{{date updated_at format="D MMM YYYY"}}</time>
+                <!-- {{date updated_at format="YYYY-MM-DD" }} -->
+                <span class="byline-reading-time"><span class="bull">&bull;</span> {{reading_time}}</span>
+            </div>
+        </section>
+    </section>
+</div>

@@ -16,70 +16,7 @@ into the {body} of the default.hbs template --}}
         <article class="post-full {{post_class}} {{#unless feature_image}}no-image{{/unless}}">
 
             <header class="post-full-header">
-
-                {{#if primary_tag}}
-                <section class="post-full-tags">
-                    {{#primary_tag}}
-                    <a href="{{url}}">{{name}}</a>
-                    {{/primary_tag}}
-                </section>
-                {{/if}}
-
-                <h1 class="post-full-title">{{title}}</h1>
-
-                <div class="post-full-byline">
-
-                    <section class="post-full-byline-content">
-
-                        <ul class="author-list">
-                            {{#foreach authors}}
-                            <li class="author-list-item">
-
-                                <div class="author-card">
-                                    {{#if profile_image}}
-                                    <img class="author-profile-image" src="{{img_url profile_image size="xs"}}" alt="{{name}}" />
-                                    {{else}}
-                                    <div class="author-profile-image">{{> "icons/avatar"}}</div>
-                                    {{/if}}
-                                    <div class="author-info">
-                                        {{#if bio}}
-                                        <div class="bio">
-                                            <h2>{{name}}</h2>
-                                            <p>{{bio}}</p>
-                                            <p><a href="{{url}}">More posts</a> by {{name}}.</p>
-                                        </div>
-                                        {{else}}
-                                        <h2>{{name}}</h2>
-                                        <p>Read <a href="{{url}}">more posts</a> by this author.</p>
-                                        {{/if}}
-                                    </div>
-                                </div>
-
-                                {{#if profile_image}}
-                                <a href="{{url}}" class="author-avatar">
-                                    <img class="author-profile-image" src="{{img_url profile_image size="xs"}}" alt="{{name}}" />
-                                </a>
-                                {{else}}
-                                <a href="{{url}}" class="author-avatar author-profile-image">{{> "icons/avatar"}}</a>
-                                {{/if}}
-
-                            </li>
-                            {{/foreach}}
-                        </ul>
-
-                        <section class="post-full-byline-meta">
-                            <h4 class="author-name">{{authors}}</h4>
-                            <div class="byline-meta-content">
-                                <time class="byline-meta-date" datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time>
-                                <!-- {{date updated_at format="YYYY-MM-DD" }} -->
-                                <span class="byline-reading-time"><span class="bull">&bull;</span> {{reading_time}}</span>
-                            </div>
-                        </section>
-
-                    </section>
-
-
-                </div>
+                {{> post-byline-centered}}
             </header>
             <!--  {{img_url og_image}} -->
             {{#if feature_image}}
@@ -214,9 +151,6 @@ into the {body} of the default.hbs template --}}
     </div>
 </aside>
 
-{{!-- Floating header which appears on-scroll, included from includes/floating-header.hbs --}}
-{{> floating-header-minimal}}
-
 {{/post}}
 
 {{!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs --}}
@@ -242,33 +176,32 @@ var _pretify = function(block) {
   })(block)
 }
 var preHeadFoot = function(block) {
-    var complete = block.getAttribute('complete');
-    var header = block.getAttribute('header');
-    var footer = block.getAttribute('footer');
-    if(complete){
+  var complete = block.getAttribute('complete');
+  var header = block.getAttribute('header');
+  var footer = block.getAttribute('footer');
+  if(complete){
+    var d = document.createElement('div');
+    d.classList.add('footer');
+    var a = document.createElement('a');
+    a.setAttribute('href', complete);
+    a.setAttribute('target', '_blank');
+    a.innerText = complete;
+    d.appendChild(a);
 
-        var d = document.createElement('div');
-        d.classList.add('footer');
-        var a = document.createElement('a');
-        a.setAttribute('href', complete);
-        a.setAttribute('target', '_blank');
-        a.innerText = complete;
-        d.appendChild(a);
-
-        block.appendChild(d);
-    }
-    if(header && header !== ''){
-        var d = document.createElement('div');
-        d.classList.add('header');
-        d.innerHTML = header;
-        block.insertBefore(d, block.firstChild);
-    }
-    if(footer && footer !== ''){
-        var d = document.createElement('div');
-        d.classList.add('footer');
-        d.innerHTML = footer;
-        block.appendChild(d);
-    }
+    block.appendChild(d);
+  }
+  if(header && header !== ''){
+    var d = document.createElement('div');
+    d.classList.add('header');
+    d.innerHTML = header;
+    block.insertBefore(d, block.firstChild);
+  }
+  if(footer && footer !== ''){
+    var d = document.createElement('div');
+    d.classList.add('footer');
+    d.innerHTML = footer;
+    block.appendChild(d);
+  }
 }
 </script>
 <script>
