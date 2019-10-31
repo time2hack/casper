@@ -19,17 +19,19 @@ It's a good idea to keep this template as minimal as possible in terms of both f
 <body class="error-template">
   <div class="site-wrapper">
 
-    <header class="site-header outer {{#if feature_image}}"
+    <header class="site-header {{#if feature_image}}"
       style="background-image: url({{feature_image}}){{else}}no-image{{/if}}">
-      <div class="inner">
-        <nav class="site-nav-center">
-          {{#if @site.logo}}
-          <a class="site-nav-logo" href="{{@site.url}}"><img src="{{img_url @site.logo size="xs"}}"
-              alt="{{@site.title}}" /></a>
-          {{else}}
-          <a class="site-nav-logo" href="{{@site.url}}">{{@site.title}}</a>
-          {{/if}}
-        </nav>
+      <div class="outer site-nav-main">
+        <div class="inner">
+          <nav class="site-nav-center">
+            {{#if @site.logo}}
+            <a class="site-nav-logo" href="{{@site.url}}"><img src="{{img_url @site.logo size="xs"}}"
+                alt="{{@site.title}}" /></a>
+            {{else}}
+            <a class="site-nav-logo" href="{{@site.url}}">{{@site.title}}</a>
+            {{/if}}
+          </nav>
+        </div>
       </div>
     </header>
 
@@ -95,10 +97,10 @@ It's a good idea to keep this template as minimal as possible in terms of both f
           </form>
         </div>
       </div>
-      </aside>
-      {{/if}}
-
     </div>
+    {{/if}}
+
+  </div>
 </body>
 
 </html>

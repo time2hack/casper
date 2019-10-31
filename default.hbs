@@ -85,71 +85,71 @@
         </form>
       </div>
     </div>
-    </aside>
-    {{/if}}
+  </div>
+  {{/if}}
 
-    {{!-- jQuery + Fitvids, which makes all video embeds responsive --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"
-      integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous">
-      </script>
-    {{!-- Fitvids (for responsive video embeds), infinite scroll, floating header, and gallery card support --}}
-    <script src="{{asset "built/casper.js"}}"></script>
+  {{!-- jQuery + Fitvids, which makes all video embeds responsive --}}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"
+    integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous">
+    </script>
+  {{!-- Fitvids (for responsive video embeds), infinite scroll, floating header, and gallery card support --}}
+  <script src="{{asset "built/casper.js"}}"></script>
 
-    {{!-- Scripts for Members subscription --}}
-    <script>
-      var galleryImages = document.querySelectorAll('.kg-gallery-image');
-      galleryImages.forEach(function (container) {
-        var images = container.querySelectorAll('img');
-        images && images.forEach(function (image) {
-          var width = image.attributes.width.value;
-          var height = image.attributes.height.value;
-          var ratio = width / height;
-          container.style.flex = ratio + ' 1 0%';
-        });
+  {{!-- Scripts for Members subscription --}}
+  <script>
+    var galleryImages = document.querySelectorAll('.kg-gallery-image');
+    galleryImages.forEach(function (container) {
+      var images = container.querySelectorAll('img');
+      images && images.forEach(function (image) {
+        var width = image.attributes.width.value;
+        var height = image.attributes.height.value;
+        var ratio = width / height;
+        container.style.flex = ratio + ' 1 0%';
       });
+    });
 
-      // Parse the URL parameter
-      function getParameterByName(name, url) {
-        if (!url) url = window.location.href;
-        name = name.replace(/[\[\]]/g, "\\$&");
-        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-          results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    // Parse the URL parameter
+    function getParameterByName(name, url) {
+      if (!url) url = window.location.href;
+      name = name.replace(/[\[\]]/g, "\\$&");
+      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    // Give the parameter a variable name
+    var action = getParameterByName('action');
+
+    document.addEventListener("DOMContentLoaded", function (event) {
+      var subscribeSuccessMessageClose = document.querySelector('.subscribe-success-message .subscribe-close')
+      var subscribeSuccessMessage = document.querySelector('.subscribe-success-message')
+      var subscribeButton = document.querySelector('.subscribe-button')
+      var subscribeOverlayForm = document.querySelector('.subscribe-overlay form')
+      var subscribeEmail = document.querySelector('.subscribe-email')
+
+      if (action == 'subscribe') {
+        document.body.classList.add('subscribe-success');
       }
 
-      // Give the parameter a variable name
-      var action = getParameterByName('action');
-
-      document.addEventListener("DOMContentLoaded", function (event) {
-        var subscribeSuccessMessageClose = document.querySelector('.subscribe-success-message .subscribe-close')
-        var subscribeSuccessMessage = document.querySelector('.subscribe-success-message')
-        var subscribeButton = document.querySelector('.subscribe-button')
-        var subscribeOverlayForm = document.querySelector('.subscribe-overlay form')
-        var subscribeEmail = document.querySelector('.subscribe-email')
-
-        if (action == 'subscribe') {
-          document.body.classList.add('subscribe-success');
-        }
-
-        subscribeSuccessMessageClose && subscribeSuccessMessageClose.click(function () {
-          subscribeSuccessMessage.classList.add('close');
-        });
-
-        // Reset form on opening subscrion overlay
-        subscribeButton && subscribeButton.click(function () {
-          subscribeOverlayForm.setAttribute('class', '');
-          subscribeEmail.value = '';
-        });
+      subscribeSuccessMessageClose && subscribeSuccessMessageClose.addEventListener('click', function () {
+        subscribeSuccessMessage.classList.add('close');
       });
-    </script>
 
-    {{!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. --}}
-    {{{block "scripts"}}}
+      // Reset form on opening subscrion overlay
+      subscribeButton && subscribeButton.addEventListener('click', function () {
+        subscribeOverlayForm.setAttribute('class', '');
+        subscribeEmail.value = '';
+      });
+    });
+  </script>
 
-    {{!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag --}}
-    {{ghost_foot}}
+  {{!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. --}}
+  {{{block "scripts"}}}
+
+  {{!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag --}}
+  {{ghost_foot}}
 
 </body>
 

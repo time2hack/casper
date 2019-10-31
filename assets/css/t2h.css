@@ -114,9 +114,11 @@ pre .header a:hover, pre .footer a:hover {
   display: none;
 }
 
-.post-full-header {
-  padding-left: 100px;
-  padding-right: 100px;
+@media (min-width: 1171px) {
+  .post-full-header {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
 }
 
 .post-full-byline-content .author-list {
