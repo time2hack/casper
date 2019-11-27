@@ -1,10 +1,10 @@
 {{#is "paged"}}
-  {{^if description}}
+  {{^if meta_description}}
     <meta name="description" content="{{@site.description}}" />
     <meta property="og:description" content="{{@site.description}}" />
     <meta name="twitter:description" content="{{@site.description}}" />
   {{/if}}
 
-  <meta name="og:image" content="{{@site.cover_image}}">
-  <meta name="twitter:image" content="{{@site.cover_image}}">
+  <meta name="og:image" content="{{@site.og_image}}">
+  <meta name="twitter:image" content="{{@site.og_image}}">
 {{/is}}

@@ -77,6 +77,7 @@ into the {body} of the default.hbs template --}}
                                 <time class="byline-meta-date" datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time>
                                 <span class="byline-reading-time"><span class="bull">&bull;</span> {{reading_time}}</span>
                             </div>
+                            {{> byline-meta container='div'}}
                         </section>
 
                     </section>
@@ -155,22 +156,6 @@ into the {body} of the default.hbs template --}}
 
 {{!-- Links to Previous/Next posts --}}
 <aside class="read-next outer">
-    <div class="inner post-pagination">
-        <div class="read-next-feed-pages">
-            <div class="previous">
-                {{!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs --}}
-                {{#prev_post}}
-                    {{> "post-card-in-pagination"}}
-                {{/prev_post}}
-            </div>
-            <div class="next">
-                {{!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs --}}
-                {{#next_post}}
-                    {{> "post-card-in-pagination"}}
-                {{/next_post}}
-            </div>
-        </div>
-    </div>
     <div class="inner">
         <div class="read-next-feed">
             {{#if primary_tag}}
@@ -221,15 +206,6 @@ into the {body} of the default.hbs template --}}
 
 {{!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs --}}
 {{#contentFor "scripts"}}
-{{!-- jQuery + Fitvids, which makes all video embeds responsive --}}
-<script
-    src="https://code.jquery.com/jquery-3.2.1.min.js"
-    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-    crossorigin="anonymous">
-</script>
-
-<script type="text/javascript" src="{{asset "built/jquery.fitvids.js"}}"></script>
-
 <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 <script id="all-custom-js-functions">
 var _toArray = function(nodeList) { return Array.prototype.slice.call(nodeList); };
@@ -288,10 +264,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 return response.text();
             }).then(function(data){
                 block.innerText = data;
-            }).then(function() {
-            _pretify(block);
-            preHeadFoot(block);
-        });
+                _pretify(block);
+                preHeadFoot(block);
+            });
         } else {
             _pretify(block);
             preHeadFoot(block);
@@ -299,12 +274,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
     // End CodeBlock Enriching
 
-
-
-    // Start fitVids
+    // FitVids - start
     var $postContent = $(".post-full-content");
     $postContent.fitVids();
-    // End fitVids
+    // FitVids - end
 
     // Replace nav with title on scroll - start
     Casper.stickyNavTitle({
@@ -332,23 +305,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }, 800);
     });
 
-    var progressBar = document.querySelector('#reading-progress');
-    var header = document.querySelector('.floating-header');
-    var title = document.querySelector('.post-full-title');
-
-    var lastScrollY = window.scrollY;
-    var lastWindowHeight = window.innerHeight;
-    var lastDocumentHeight = $(document).height();
     var ticking = false;
 
     function onScroll() {
-        lastScrollY = window.scrollY;
         requestTick();
     }
 
     function onResize() {
-        lastWindowHeight = window.innerHeight;
-        lastDocumentHeight = $(document).height();
+
         requestTick();
     }
 
@@ -375,22 +339,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     function update() {
-        var trigger = title.getBoundingClientRect().top + window.scrollY;
-        var triggerOffset = title.offsetHeight + 35;
-        var progressMax = lastDocumentHeight - lastWindowHeight;
-
-        // show/hide floating header
-        if (lastScrollY >= trigger + triggerOffset) {
-            header.classList.add('floating-active');
-        } else {
-            header.classList.remove('floating-active');
-        }
-
-        progressBar.setAttribute('max', progressMax);
-        progressBar.setAttribute('value', lastScrollY);
-
-        //lazyLoad();
-
+        lazyLoad();
         ticking = false;
     }
 
