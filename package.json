@@ -2,7 +2,7 @@
     "name": "casper-t2h",
     "description": "The default personal blogging theme for Ghost. Beautiful, minimal and responsive.",
     "demo": "https://time2hack.com",
-    "version": "3.0.3",
+    "version": "3.0.4",
     "engines": {
         "ghost": ">=3.0.0",
         "ghost-api": "v3"

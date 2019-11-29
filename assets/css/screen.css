@@ -2605,7 +2605,7 @@ Usage (In Ghost editor):
     opacity: 0;
     transition: opacity 0.2s ease-in;
     pointer-events: none;
-	}
+}
 
 .subscribe-overlay .subscribe-close:before,
 .subscribe-overlay .subscribe-close:after {
