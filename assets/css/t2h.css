@@ -790,3 +790,6 @@ time.updated-at {
 .reading-time {
   white-space: nowrap;
 }
+.post-card-byline-content a {
+  padding: 0.2rem 0 0.5rem 0;
+}
