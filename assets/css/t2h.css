@@ -794,12 +794,12 @@ time.updated-at {
   padding: 0.2rem 0 0.5rem 0;
 }
 
-.tags-test.dark .post-card-primary-tag {
+.post-card-primary-tag.dark {
   background: #333;
   color: #fff;
 }
 
-.tags-test .post-card-primary-tag {
+.post-card-primary-tag {
   color: #333;
   padding: 0 .75rem;
   display: inline-block;
@@ -808,4 +808,13 @@ time.updated-at {
   margin-bottom: 1rem;
   border: 1px solid #dedede;
   text-transform: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .post-card-excerpt { color: #92a3ab; }
+  .post-card-primary-tag {
+    background: transparent;
+    color: #ccc;
+  }
+
 }

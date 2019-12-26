@@ -50,6 +50,7 @@ function css(done) {
     pump([
         src('assets/css/*.css', {sourcemaps: true}),
         postcss(processors),
+        concat('casper-t2h.css'),
         dest('assets/built/', {sourcemaps: '.'}),
         livereload()
     ], handleError(done));
