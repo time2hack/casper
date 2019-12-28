@@ -84,5 +84,8 @@
                 "width": 2000
             }
         }
+    },
+    "dependencies": {
+        "gulp-concat-css": "^3.1.0"
     }
 }

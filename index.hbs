@@ -92,7 +92,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     function update() {
         var trigger = feed.getBoundingClientRect().top + window.scrollY;
-        var progressMax = lastDocumentHeight - lastWindowHeight;
 
         // show/hide nav
         if (lastScrollY >= trigger - 20) {
@@ -107,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });
-        window.addEventListener('resize', onResize, false);
+    window.addEventListener('resize', onResize, false);
 
     update();
 });

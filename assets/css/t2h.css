@@ -795,26 +795,54 @@ time.updated-at {
 }
 
 .post-card-primary-tag.dark {
-  background: #333;
-  color: #fff;
+    background: var(--darkgrey);
+    color: #fff;
 }
 
-.post-card-primary-tag {
-  color: #333;
-  padding: 0 .75rem;
-  display: inline-block;
-  border-radius: 0.3rem;
-  background: #efefef;
-  margin-bottom: 1rem;
-  border: 1px solid #dedede;
-  text-transform: none;
+.post-full-tags a,
+.post-card-primary-tag,
+.read-next .post-card-primary-tag {
+    color: var(--darkgrey);
+    padding: 0 .75rem;
+    display: inline-block;
+    border-radius: 0.3rem;
+    background: var(--whitegrey);
+    margin-bottom: 1rem;
+    border: 0px;
+    text-transform: none;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: all ease 200ms;
+}
+.post-full-tags a {
+    padding: 0.25rem 0.75rem;
+}
+.post-full-tags a:hover {
+    text-decoration: none;
+    border: 1px solid var(--blue);
+    background: color(var(--blue) a(25%));
+}
+
+.post-card-byline-content {
+    color: #555;
+}
+.post-card-meta {
+    margin-top: 0.25rem;
+}
+
+.subscribe-button {
+    color: var(--darkgrey);
+    background-color: var(--whitegrey);
+    border: 1px solid var(--lightgrey);
 }
 
 @media (prefers-color-scheme: dark) {
-  .post-card-excerpt { color: #92a3ab; }
-  .post-card-primary-tag {
-    background: transparent;
-    color: #ccc;
-  }
+    .post-card-excerpt {
+        color: #92a3ab;
+    }
+    .post-card-primary-tag {
+        background: transparent;
+        color: #ccc;
+    }
 
 }

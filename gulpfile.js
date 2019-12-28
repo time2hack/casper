@@ -1,5 +1,6 @@
 const {series, watch, src, dest, parallel} = require('gulp');
 const pump = require('pump');
+const concatCss = require('gulp-concat-css');
 
 // gulp plugins and utils
 const livereload = require('gulp-livereload');
@@ -48,9 +49,12 @@ function css(done) {
     ];
 
     pump([
-        src('assets/css/*.css', {sourcemaps: true}),
+        src([
+            'assets/css/screen.css',
+            'assets/css/t2h.css'
+        ], {sourcemaps: true}),
+        concatCss('casper-t2h.css'),
         postcss(processors),
-        concat('casper-t2h.css'),
         dest('assets/built/', {sourcemaps: '.'}),
         livereload()
     ], handleError(done));
