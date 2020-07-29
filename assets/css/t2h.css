@@ -3,8 +3,8 @@
     --fontFamily: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Helvetica Neue', Helvetica, Ubuntu, Roboto, Noto, 'Segoe UI', Arial, sans-serif;
 }
 
-* {
-    font-display: fallback !important;
+html, body {
+    font-family: var(--fontFamily);
 }
 
 .home-template .site-description {
@@ -48,6 +48,9 @@
     margin: 0;
 }
 
+pre {
+    line-height: 1.75;
+}
 /* Code Highlighter Start */
 pre.prettyprint {
     border: 0 !important;
