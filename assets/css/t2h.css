@@ -1,4 +1,11 @@
-/* From Code Injection panel */
+:root {
+    --fontFamilyMonospace: Inconsolata, Consolas, Menlo, Monaco, "Courier New", monospace;
+    --fontFamily: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Helvetica Neue', Helvetica, Ubuntu, Roboto, Noto, 'Segoe UI', Arial, sans-serif;
+}
+
+* {
+    font-display: fallback !important;
+}
 
 .home-template .site-description {
     display: none !important
@@ -27,7 +34,7 @@
     color: white;
     text-decoration: none;
     padding: 4px 6px;
-    font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Helvetica Neue', Helvetica, Ubuntu, Roboto, Noto, 'Segoe UI', Arial, sans-serif;
+    font-family: var(--fontFamily);
     font-size: 12px;
     font-weight: bold;
     line-height: 1.2;
@@ -110,7 +117,7 @@ pre .footer a:hover {
 
 /* ------------------------------- */
 
-/* Fomr Screen.css */
+/* From Screen.css */
 
 .loader {
     background-size: cover;
@@ -135,7 +142,7 @@ pre .footer a:hover {
 a.gh-btn {
     color: #fff;
     box-shadow: none;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif;
+    font-family: var(--fontFamily);
 }
 
 a.gh-btn:hover {
@@ -574,7 +581,7 @@ fieldset[disabled] .gh-btn {
     width: auto;
     border-spacing: 0;
     border-collapse: collapse;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-family: var(--fontFamily);
     font-size: 1.6rem;
     white-space: nowrap;
     vertical-align: top;
@@ -630,7 +637,7 @@ code,
 kbd,
 pre,
 samp {
-    font-family: Inconsolata, Consolas, Menlo, Monaco, "Courier New", monospace;
+    font-family: var(--fontFamilyMonospace);
 }
 
 pre.prettyprint,
@@ -864,6 +871,10 @@ code .dec {
 /* decimal - blue */
 
 /* ------------------------------- */
+
+.post-full-content p {
+    font-family: var(--fontFamily);
+}
 
 .post-card-content {
     display: flex;
