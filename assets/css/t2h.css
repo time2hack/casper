@@ -16,6 +16,11 @@ html, body {
     padding-top: 0;
 }
 
+.post-full-content code {
+    word-break: keep-all !important;
+    font-weight: inherit !important;
+}
+
 .post-full-content:before,
 .post-full-content:after {
     display: none;
@@ -954,6 +959,20 @@ time.updated-at {
 
 .post-card-byline-content a {
     padding: 0.2rem 0 0.5rem 0;
+}
+
+.post-card-primary-tag.byline-reading-time {
+    display: none;
+}
+
+.with-reading-time-pill .post-card-primary-tag.byline-reading-time {
+    float: right;
+    display: block;
+    font-weight: 600;
+}
+
+.with-reading-time-pill .custom-byline-meta .byline-reading-time {
+    display: none;
 }
 
 .post-card-primary-tag.dark {
