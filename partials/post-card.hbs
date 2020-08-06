@@ -1,4 +1,4 @@
-<article class="post-card {{post_class}} {{#unless feature_image}}no-image{{else}}{{#is "home"}}{{#has index="nth:6"}}post-card-large{{/has}}{{/is}}{{/unless}}">
+<article class="post-card with-reading-time-pill {{post_class}} {{#unless feature_image}}no-image{{else}}{{#is "home"}}{{#has index="nth:6"}}post-card-large{{/has}}{{/is}}{{/unless}}">
 
     {{#if feature_image}}
     <a class="post-card-image-link loader" href="{{url}}" aria-label="{{title}}">
@@ -22,11 +22,16 @@
         <a class="post-card-content-link" href="{{url}}">
 
             <header class="post-card-header">
-                {{#if primary_tag}}
-                    {{#primary_tag}}
-                    <div class="post-card-primary-tag">{{name}}</div>
-                    {{/primary_tag}}
-                {{/if}}
+                <div>
+                    {{#if primary_tag}}
+                        {{#primary_tag}}
+                        <span class="post-card-primary-tag">{{name}}</span>
+                        {{/primary_tag}}
+                    {{/if}}
+                    <span class="post-card-primary-tag byline-reading-time">
+                        ⌛︎ <span class="reading-time" style="margin-left: 5px;">{{reading_time}}</span>
+                    </span>
+                </div>
                 <h2 class="post-card-title">{{title}}</h2>
             </header>
 
@@ -61,7 +66,9 @@
             </ul>
             <div class="post-card-byline-content">
                 <span>{{#has author="count:>2"}}Multiple authors{{else}}{{authors}}{{/has}}</span>
-                <span class="post-card-byline-date"><time datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time> <span class="bull">&bull;</span> {{reading_time}}</span>
+                <span class="post-card-byline-date">
+                    <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time>
+                </span>
                 {{> byline-meta container='span'}}
             </div>
         </footer>

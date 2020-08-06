@@ -1,4 +1,11 @@
-/* From Code Injection panel */
+:root {
+    --fontFamilyMonospace: Inconsolata, Consolas, Menlo, Monaco, "Courier New", monospace;
+    --fontFamily: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Helvetica Neue', Helvetica, Ubuntu, Roboto, Noto, 'Segoe UI', Arial, sans-serif;
+}
+
+html, body {
+    font-family: var(--fontFamily);
+}
 
 .home-template .site-description {
     display: none !important
@@ -7,6 +14,11 @@
 .post-full-content {
     background: transparent;
     padding-top: 0;
+}
+
+.post-full-content code {
+    word-break: keep-all !important;
+    font-weight: inherit !important;
 }
 
 .post-full-content:before,
@@ -27,7 +39,7 @@
     color: white;
     text-decoration: none;
     padding: 4px 6px;
-    font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Helvetica Neue', Helvetica, Ubuntu, Roboto, Noto, 'Segoe UI', Arial, sans-serif;
+    font-family: var(--fontFamily);
     font-size: 12px;
     font-weight: bold;
     line-height: 1.2;
@@ -41,6 +53,9 @@
     margin: 0;
 }
 
+pre {
+    line-height: 1.75;
+}
 /* Code Highlighter Start */
 pre.prettyprint {
     border: 0 !important;
@@ -110,7 +125,7 @@ pre .footer a:hover {
 
 /* ------------------------------- */
 
-/* Fomr Screen.css */
+/* From Screen.css */
 
 .loader {
     background-size: cover;
@@ -135,7 +150,7 @@ pre .footer a:hover {
 a.gh-btn {
     color: #fff;
     box-shadow: none;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif;
+    font-family: var(--fontFamily);
 }
 
 a.gh-btn:hover {
@@ -574,7 +589,7 @@ fieldset[disabled] .gh-btn {
     width: auto;
     border-spacing: 0;
     border-collapse: collapse;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-family: var(--fontFamily);
     font-size: 1.6rem;
     white-space: nowrap;
     vertical-align: top;
@@ -630,7 +645,7 @@ code,
 kbd,
 pre,
 samp {
-    font-family: Inconsolata, Consolas, Menlo, Monaco, "Courier New", monospace;
+    font-family: var(--fontFamilyMonospace);
 }
 
 pre.prettyprint,
@@ -865,6 +880,10 @@ code .dec {
 
 /* ------------------------------- */
 
+.post-full-content p {
+    font-family: var(--fontFamily);
+}
+
 .post-card-content {
     display: flex;
     flex-direction: column;
@@ -940,6 +959,20 @@ time.updated-at {
 
 .post-card-byline-content a {
     padding: 0.2rem 0 0.5rem 0;
+}
+
+.post-card-primary-tag.byline-reading-time {
+    display: none;
+}
+
+.with-reading-time-pill .post-card-primary-tag.byline-reading-time {
+    float: right;
+    display: block;
+    font-weight: 600;
+}
+
+.with-reading-time-pill .custom-byline-meta .byline-reading-time {
+    display: none;
 }
 
 .post-card-primary-tag.dark {
