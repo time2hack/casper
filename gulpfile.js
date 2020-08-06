@@ -1,5 +1,6 @@
 const {series, watch, src, dest, parallel} = require('gulp');
 const pump = require('pump');
+const concatCss = require('gulp-concat-css');
 const path = require('path');
 const releaseUtils = require('@tryghost/release-utils');
 const inquirer = require('inquirer');
@@ -46,7 +47,11 @@ function hbs(done) {
 
 function css(done) {
     pump([
-        src('assets/css/*.css', {sourcemaps: true}),
+        src([
+            'assets/css/screen.css',
+            'assets/css/t2h.css'
+        ], {sourcemaps: true}),
+        concatCss('casper-t2h.css'),
         postcss([
             easyimport,
             colorFunction(),

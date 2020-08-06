@@ -1,0 +1,7 @@
+<a class="site-nav-logo" href="{{@site.url}}">
+{{#if @site.icon}}
+    <img src="{{img_url @site.icon size="xs"}}" alt="{{@site.title}}" />
+{{else}}
+    {{@site.title}}
+{{/if}}
+</a>

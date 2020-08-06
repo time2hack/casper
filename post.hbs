@@ -4,7 +4,7 @@
 into the {body} of the default.hbs template --}}
 
 <header class="site-header">
-    {{> site-header}}
+    {{> "site-header"}}
 </header>
 
 {{!-- Everything inside the #post tags pulls data from the post --}}
@@ -77,6 +77,7 @@ into the {body} of the default.hbs template --}}
                                 <time class="byline-meta-date" datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time>
                                 <span class="byline-reading-time"><span class="bull">&bull;</span> {{reading_time}}</span>
                             </div>
+                            {{> byline-meta container='div'}}
                         </section>
 
                     </section>
@@ -84,7 +85,7 @@ into the {body} of the default.hbs template --}}
 
                 </div>
             </header>
-
+            <!--  {{img_url og_image}} -->
             {{#if feature_image}}
             <figure class="post-full-image">
                 {{!-- This is a responsive image, it loads different sizes depending on device
@@ -98,15 +99,15 @@ into the {body} of the default.hbs template --}}
                         (max-width: 1170px) 1170px,
                             2000px"
                     src="{{img_url feature_image size="xl"}}"
+                    data-src="{{img_url feature_image size="xl"}}"
                     alt="{{title}}"
                 />
             </figure>
             {{/if}}
 
             <section class="post-full-content">
-                <div class="post-content">
-                    {{content}}
-                </div>
+                {{content}}
+                {{> "ad"}}
             </section>
 
             {{!-- Email subscribe form at the bottom of the page --}}
@@ -115,10 +116,38 @@ into the {body} of the default.hbs template --}}
             {{/if}}
 
             {{!--
-            <section class="post-full-comments">
-                If you want to embed comments, this is a good place to do it!
-            </section>
+
+            If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id.
+
             --}}
+
+            <section class="post-full-comments">
+                <div id="disqus_thread"></div>
+                <script>
+                    var disqus_config = function () {
+                        this.page.url = '{{url absolute="true"}}';
+                        this.page.identifier = 'ghost-{{comment_id}}';
+                        this.callbacks.onNewComment = [function(comment) {
+                            ga('send', {
+                                'hitType': 'event',
+                                'eventCategory': 'Comments',
+                                'eventAction': 'New Comment',
+                                'eventLabel': 'New Comment'
+                            });
+                        }];
+                    };
+                    (function() {
+                        setTimeout(function() {
+                            var d = document, s = d.createElement('script');
+                            s.src = 'https://time2hack.disqus.com/embed.js';
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                        }, 3000);
+                    })();
+                </script>
+            </section>
 
         </article>
 
@@ -177,38 +206,148 @@ into the {body} of the default.hbs template --}}
 
 {{!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs --}}
 {{#contentFor "scripts"}}
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+<script id="all-custom-js-functions">
+var _toArray = function(nodeList) { return Array.prototype.slice.call(nodeList); };
+var _getAll = function(query) { return _toArray(document.querySelectorAll(query)); };
+
+var _pretify = function(block) {
+  window.PR && (function(block){
+	block.classList.add('prettyprint');
+    PR.prettyPrint();
+  })(block)
+}
+var preHeadFoot = function(block) {
+    var complete = block.getAttribute('complete');
+    var header = block.getAttribute('header');
+    var footer = block.getAttribute('footer');
+    if(complete){
+
+        var d = document.createElement('div');
+        d.classList.add('footer');
+        var a = document.createElement('a');
+        a.setAttribute('href', complete);
+        a.setAttribute('target', '_blank');
+        a.innerText = complete;
+        d.appendChild(a);
+
+        block.appendChild(d);
+    }
+    if(header && header !== ''){
+        var d = document.createElement('div');
+        d.classList.add('header');
+        d.innerHTML = header;
+        block.insertBefore(d, block.firstChild);
+    }
+    if(footer && footer !== ''){
+        var d = document.createElement('div');
+        d.classList.add('footer');
+        d.innerHTML = footer;
+        block.appendChild(d);
+    }
+}
+</script>
 <script>
-    $(document).ready(function () {
-        // FitVids - start
-        var $postContent = $(".post-full-content");
-        $postContent.fitVids();
-        // FitVids - end
 
-        // Replace nav with title on scroll - start
-        Casper.stickyNavTitle({
-            navSelector: '.site-nav-main',
-            titleSelector: '.post-full-title',
-            activeClass: 'nav-post-title-active'
-        });
-        // Replace nav with title on scroll - end
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+document.addEventListener("DOMContentLoaded", function(event) {
 
-        // Hover on avatar
-        var hoverTimeout;
-        $('.author-list-item').hover(function () {
-            var $this = $(this);
-
-            clearTimeout(hoverTimeout);
-
-            $('.author-card').removeClass('hovered');
-            $(this).children('.author-card').addClass('hovered');
-
-        }, function () {
-            var $this = $(this);
-
-            hoverTimeout = setTimeout(function () {
-                $this.children('.author-card').removeClass('hovered');
-            }, 800);
-        });
+    // Start CodeBlock Enriching
+    var codeBlocks = _getAll('pre, code.hljs');
+    codeBlocks.forEach && codeBlocks.forEach(function(block, i) {
+        var remotePath = block.getAttribute('remotepath');
+        if(remotePath){
+            fetch(remotePath).then(function(response){
+                return response.text();
+            }).then(function(data){
+                block.innerText = data;
+                _pretify(block);
+                preHeadFoot(block);
+            });
+        } else {
+            _pretify(block);
+            preHeadFoot(block);
+        }
     });
+    // End CodeBlock Enriching
+
+    // FitVids - start
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // FitVids - end
+
+    // Replace nav with title on scroll - start
+    Casper.stickyNavTitle({
+        navSelector: '.site-nav-main',
+        titleSelector: '.post-full-title',
+        activeClass: 'nav-post-title-active'
+    });
+    // Replace nav with title on scroll - end
+
+    // Hover on avatar
+    var hoverTimeout;
+    $('.author-list-item').hover(function () {
+        var $this = $(this);
+
+        clearTimeout(hoverTimeout);
+
+        $('.author-card').removeClass('hovered');
+        $(this).children('.author-card').addClass('hovered');
+
+    }, function () {
+        var $this = $(this);
+
+        hoverTimeout = setTimeout(function () {
+            $this.children('.author-card').removeClass('hovered');
+        }, 800);
+    });
+
+    var ticking = false;
+
+    function onScroll() {
+        requestTick();
+    }
+
+    function onResize() {
+
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function lazyLoad() {
+        var notLoaded = [].slice.call(document.querySelectorAll('.loader'));
+        for(var i = 0; i < notLoaded.length; i++) {
+            var el = notLoaded[i];
+            var pos = el.getBoundingClientRect();
+            if (
+                (pos.top >= 0 && pos.top <= window.innerHeight + 50)
+                || (pos.bottom >= 0 && pos.bottom <= window.innerHeight)
+            ) {
+                el.src = el.getAttribute('data-image');
+                el.classList.remove('loader');
+            }
+        }
+    }
+
+    function update() {
+        lazyLoad();
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+
+});
 </script>
 {{/contentFor}}

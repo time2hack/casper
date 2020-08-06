@@ -8,7 +8,7 @@ It's a good idea to keep this template as minimal as possible in terms of both f
 into the {body} of the default.hbs template --}}
 
 <header class="site-header">
-    {{> site-header}}
+    {{> "site-header"}}
 </header>
 
 <main id="site-main" class="site-main outer error-content">
@@ -18,6 +18,10 @@ into the {body} of the default.hbs template --}}
             <p class="error-description">{{message}}</p>
             <a class="error-link" href="{{@site.url}}">Go to the front page →</a>
         </section>
+
+        <center class="margin-10">
+            {{> "ad"}}
+        </center>
 
         {{#get "posts" limit="3" include="authors,tags"}}
             <div class="post-feed">

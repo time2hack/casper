@@ -11,11 +11,19 @@
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
+
     {{!-- Styles'n'Scripts --}}
+    {{!-- <link rel="stylesheet" type="text/css" href="{{asset "built/global.css"}}" />
     <link rel="stylesheet" type="text/css" href="{{asset "built/screen.css"}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset "built/t2h.css"}}" /> --}}
+    <link rel="stylesheet" type="text/css" href="{{asset "built/casper-t2h.css"}}" />
 
     {{!-- This tag outputs SEO meta+structured data and other important settings --}}
     {{ghost_head}}
+
+    {{> "tags-meta-fixes"}}
+    {{> "paged-meta-fixes"}}
 
 </head>
 <body class="{{body_class}}">
@@ -27,6 +35,7 @@
 
         {{!-- The footer at the very bottom of the screen --}}
         <footer class="site-footer outer">
+
             <div class="site-footer-content inner">
                 <section class="copyright"><a href="{{@site.url}}">{{@site.title}}</a> &copy; {{date format="YYYY"}}</section>
                 <nav class="site-footer-nav">
@@ -43,7 +52,7 @@
     {{!-- The big email subscribe modal content --}}
     {{#if @labs.members}}
     <div class="subscribe-success-message">
-        <a class="subscribe-close" href="javascript:;"></a>
+        <a class="subscribe-close" aria-label="Close" href="javascript:;"></a>
         You've successfully subscribed to {{@site.title}}!
     </div>
 
@@ -75,13 +84,13 @@
                 </form>
             </div>
         </div>
-    </div>
+    </aside>
     {{/if}}
 
     {{!-- jQuery, required for fitvids --}}
     <script
-        src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"
+        integrity="sha512-/DXTXr6nQodMUiq+IUJYCt2PPOUjrHJ9wFrqpJ3XkgPNOZVfMok7cRw6CSxyCQxXn6ozlESsSh1/sMCTF1rL/g=="
         crossorigin="anonymous">
     </script>
     {{!-- Fitvids (for responsive video embeds), infinite scroll, floating header, and gallery card support --}}

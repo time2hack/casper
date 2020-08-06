@@ -1,7 +1,7 @@
 {
-    "name": "casper",
+    "name": "casper-t2h",
     "description": "A clean, minimal default theme for the Ghost publishing platform",
-    "demo": "https://demo.ghost.io",
+    "demo": "https://time2hack.com",
     "version": "3.1.0",
     "engines": {
         "ghost": ">=3.0.0",
@@ -41,10 +41,10 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/TryGhost/Casper.git"
+        "url": "https://github.com/time2hack/Casper.git"
     },
-    "bugs": "https://github.com/TryGhost/Casper/issues",
-    "contributors": "https://github.com/TryGhost/Casper/graphs/contributors",
+    "bugs": "https://github.com/time2hack/Casper/issues",
+    "contributors": "https://github.com/time2hack/Casper/graphs/contributors",
     "devDependencies": {
         "@tryghost/release-utils": "0.6.3",
         "autoprefixer": "9.8.6",
@@ -62,9 +62,6 @@
         "postcss-easy-import": "3.0.0",
         "pump": "3.0.0"
     },
-    "browserslist": [
-        "defaults"
-    ],
     "config": {
         "posts_per_page": 25,
         "image_sizes": {
@@ -87,5 +84,8 @@
                 "width": 2000
             }
         }
+    },
+    "dependencies": {
+        "gulp-concat-css": "^3.1.0"
     }
 }
