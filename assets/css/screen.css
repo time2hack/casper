@@ -508,15 +508,18 @@ The knock-on effect of this is ugly browser-scroll bars at the bottom, so 80px o
 
 .social-link svg {
     height: 1.8rem;
+    width: 1.8rem;
     fill: #fff;
 }
 
 .social-link-fb svg {
     height: 1.6rem;
+    width: 1.6rem;
 }
 
 .social-link-wb svg {
     height: 1.6rem;
+    width: 1.6rem;
 }
 
 .social-link-wb svg path {
@@ -525,6 +528,7 @@ The knock-on effect of this is ugly browser-scroll bars at the bottom, so 80px o
 
 .social-link-rss svg {
     height: 1.9rem;
+    width: 1.9rem;
 }
 
 .subscribe-button {
@@ -2612,6 +2616,7 @@ Usage (In Ghost editor):
     bottom: 0;
     left: 0;
     display: block;
+    color: rgba(9,10,11,0.97);
 }
 
 .subscribe-close-button {
@@ -2622,32 +2627,7 @@ Usage (In Ghost editor):
     display: block;
     width: 40px;
     height: 40px;
-}
-
-.subscribe-close-button:before {
-    content: "";
-    position: absolute;
-    top: 20px;
-    right: 4px;
-    display: block;
-    width: 32px;
-    height: 1px;
-    background: #fff;
-    opacity: 0.8;
-    transform: rotate(45deg);
-}
-
-.subscribe-close-button:after {
-    content: "";
-    position: absolute;
-    top: 20px;
-    right: 4px;
-    display: block;
-    width: 32px;
-    height: 1px;
-    background: #fff;
-    opacity: 0.8;
-    transform: rotate(-45deg);
+    color: #fff;
 }
 
 .subscribe-close-overlay:hover,

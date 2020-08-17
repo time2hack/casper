@@ -739,8 +739,7 @@ pre .tooltip:hover:after {
     }
 }
 
-@media print,
-projection {
+@media print, projection {
     .str {
         color: #060;
     }
@@ -1006,12 +1005,13 @@ time.updated-at {
     background: color(var(--blue) a(25%));
 }
 
-.post-card-byline-content {
-    color: #555;
+.post-card-meta {
+    margin-top: 0.5rem;
 }
 
-.post-card-meta {
-    margin-top: 0.25rem;
+.post-card-byline-content {
+    color: #555;
+    font-size: 1.4rem;
 }
 
 .subscribe-button {
