@@ -1,10 +1,10 @@
 :root {
     --fontFamilyMonospace: Inconsolata, Consolas, Menlo, Monaco, "Courier New", monospace;
-    --fontFamily: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Helvetica Neue', Helvetica, Ubuntu, Roboto, Noto, 'Segoe UI', Arial, sans-serif;
+    --font-family: 'Source Sans Pro', var(--font-family-default);
 }
 
 html, body {
-    font-family: var(--fontFamily);
+    font-family: var(--font-family);
 }
 
 .home-template .site-description {
