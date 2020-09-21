@@ -56,6 +56,10 @@
                 {{!-- The tag below includes the markup for each post - partials/post-card.hbs --}}
                 {{> "post-card"}}
 
+                {{#has index="nth:6"}}
+                    {{> ad }}
+                {{/has}}
+
             {{/foreach}}
         </div>
 
