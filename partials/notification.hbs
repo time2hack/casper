@@ -1,0 +1,82 @@
+<div class="notification" id='subscribe-notification'>
+    <div class="notification-content">
+        Hey There! You have made it this far.
+        <br/>
+        Whould you like to subscribe via email?
+    </div>
+    <div class="notification-footer">
+        <button id='yeah'>Yeah, Sure!</button>
+        <button id='nope'>Nah! I am Good.</button>
+    </div>
+</div>
+<style>
+.notification {
+    color: var(--darkgrey);
+    position: fixed;
+    bottom: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 320px;
+    border: 5px solid rgb(108 189 233);
+    background-color: #fff;
+    padding: 0.75rem 1rem;
+    z-index: 10000;
+    border-radius: 0.75rem;
+    transition: all ease 500ms;
+    box-shadow: 0 0 25px 5px rgba(100, 100, 100, 0.45);
+}
+.notification.active {
+	bottom: 10px;
+}
+.notification-content {
+    margin-bottom: 0.5em;
+}
+.notification-footer button {
+    margin: 0 0.25em;
+    flex: 1 auto;
+    border-radius: 0.75rem;
+    padding: 0.3rem 1rem;
+}
+.notification-footer {
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 0 -0.25em;
+}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const notification = document.querySelector('#subscribe-notification')
+    const toggleNotification = function() {
+        notification.classList.toggle('active')
+    }
+    notification && setTimeout(function() {
+        if (window.location.hash === '#subscribe') {
+            return
+        }
+        toggleNotification()
+        ga && ga('send', 'event', {
+            eventCategory: 'Notification',
+            eventAction: 'notification_seen'
+        });
+    }, 10000);
+    const yes = document.querySelector('#yeah')
+    const no = document.querySelector('#nope')
+
+    yes && yes.addEventListener('click', function () {
+        toggleNotification()
+        const loc = window.location;
+        window.location.href = loc.origin + loc.pathname + '#subscribe';
+        ga && ga('send', 'event', {
+            eventCategory: 'Notification',
+            eventAction: 'notification_yes'
+        });
+    })
+    no && no.addEventListener('click', function () {
+        toggleNotification()
+        ga && ga('send', 'event', {
+            eventCategory: 'Notification',
+            eventAction: 'notification_no'
+        });
+    })
+})
+</script>
