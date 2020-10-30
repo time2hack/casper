@@ -44,6 +44,19 @@ into the {body} of the default.hbs template --}}
 .g-recaptcha > div {
   margin: 0 auto;
 }
+.stack-items a {
+    background: #fefefe;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 17px 5px rgba(100, 100, 100, 0.3);
+    display: inline-block;
+    margin: 10px;
+    border-radius: 5px;
+}
+.stack-items a img {
+    max-height: 50px;
+    width: auto;
+    margin: 10px 20px;
+}
 </style>
 
 {{!-- Everything inside the #post tags pulls data from the post --}}
@@ -164,14 +177,32 @@ function ajax(method, url, data, success, error) {
                 </form>
                 <hr />
                 <h2>Our Stack:</h2>
-                <table>
+                <div class='stack-items'>
+                    <a href="https://m.do.co/c/635653da0b3b" >
+                        <img src="https://res.cloudinary.com/time2hack/image/upload/q_auto:good,f_auto/DigitalOcean_logo.png" />
+                    </a>
+                    <a href="https://nodejs.org" >
+                        <img src="https://res.cloudinary.com/time2hack/image/upload/q_auto:good,f_auto/Ghost-Logo.png" />
+                    </a>
+                    <a href="https://ghost.org" >
+                        <img src="https://res.cloudinary.com/time2hack/image/upload/q_auto:good,f_auto/mailgun-logo.png" />
+                    </a>
+                    <a href="https://mailgun.com" >
+                        <img src="https://res.cloudinary.com/time2hack/image/upload/q_auto:good,f_auto/Node_logo_NodeJS.png" />
+                    </a>
+                </div>
+                {{!-- <table>
                     <tbody>
-                        <tr><th>Infrastructure</th><td><a href="https://m.do.co/c/635653da0b3b" class="gh-btn gh-btn-block gh-btn-blue"><span>Digital Ocean</span></a></td></tr>
-                        <tr><th>Backend</th><td><a href="https://nodejs.org" class="gh-btn gh-btn-block gh-btn-green" target="_blank"><span>Node.js</span></a></td></tr>
-                        <tr><th>CMS</th><td><a href="https://ghost.org" class="gh-btn gh-btn-block gh-btn-red"><span>Ghost</span></a></td></tr>
-                        <tr><th>Emails</th><td><a href="https://mailgun.com" class="gh-btn gh-btn-block gh-btn-black" target="_blank"><span>Mailgun</span></a></td></tr>
+                        <tr><th>Infrastructure</th><td>
+                            <a href="https://m.do.co/c/635653da0b3b" class="gh-btn gh-btn-block gh-btn-blue"><span>Digital Ocean</span></a></td></tr>
+                        <tr><th>Backend</th><td>
+                            <a href="https://nodejs.org" class="gh-btn gh-btn-block gh-btn-green" target="_blank"><span>Node.js</span></a></td></tr>
+                        <tr><th>CMS</th><td>
+                            <a href="https://ghost.org" class="gh-btn gh-btn-block gh-btn-red"><span>Ghost</span></a></td></tr>
+                        <tr><th>Emails</th><td>
+                            <a href="https://mailgun.com" class="gh-btn gh-btn-block gh-btn-black" target="_blank"><span>Mailgun</span></a></td></tr>
                     </tbody>
-                </table>
+                </table> --}}
             </section>
 
         </article>
