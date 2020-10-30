@@ -49,6 +49,62 @@ into the {body} of the default.hbs template --}}
 {{!-- Everything inside the #post tags pulls data from the post --}}
 {{#post}}
 
+<script>
+window.__captcha_registered = (a) => {}
+window.__captcha_error = (a) => {}
+window.__captcha_expired = (a) => {}
+window.addEventListener("DOMContentLoaded", function() {
+
+    // get the form elements defined in your form HTML above
+    const name = 'contact-form';
+    var form = document.getElementById(name);
+    var button = document.getElementById(name + "-button");
+    var status = document.getElementById(name + "-status");
+
+    // Success and Error functions for after the form is submitted
+
+    function success() {
+        form.reset();
+        button.style = "display: none ";
+        status.innerHTML = "Thanks!";
+    }
+
+    function error() {
+        status.innerHTML = "Oops! There was a problem.";
+    }
+
+    // handle the form submission event
+
+    form.addEventListener("submit", function(ev) {
+        ev.preventDefault();
+        const cap = document.querySelector('#g-recaptcha-response')
+        if (!cap || !cap.value) {
+          alert('Please verify reCaptcha!')
+          return
+        }
+        var data = new FormData(form);
+        ajax(form.method, form.action, data, success, error);
+    });
+});
+
+  // helper function for sending an AJAX request
+
+function ajax(method, url, data, success, error) {
+    var xhr = new XMLHttpRequest();
+    xhr.open(method, url);
+    xhr.setRequestHeader("Accept", "application/json");
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState !== XMLHttpRequest.DONE) return;
+        if (xhr.status === 200) {
+            success(xhr.response, xhr.responseType);
+        } else {
+            error(xhr.status, xhr.response, xhr.responseType);
+        }
+    };
+    xhr.send(data);
+}
+</script>
+
 <main id="site-main" class="site-main outer">
     <div class="inner">
 
@@ -81,19 +137,24 @@ into the {body} of the default.hbs template --}}
                 <form id="contact-form" action="https://formspree.io/mlepjwnk" method="POST">
                     <p>Send us your suggestions, ideas, queries and collaboration proposals via this form</p>
                     <div class="form-group">
-                        <label>Email:</label>
+                        <label>Your Name:</label>
+                        <input type="email" name="email" class="subscribe-email" />
+                    </div>
+                    <div class="form-group">
+                        <label>Your Email:</label>
+                        <small>(We will send a copy of this message to you)</small>
                         <input type="email" name="email" class="subscribe-email" />
                     </div>
                     <div class="form-group">
                         <label>Message:</label>
-                        <textarea name="message" class="subscribe-email" rows="4"></textarea>
+                        <textarea name="message" class="subscribe-email" rows="6"></textarea>
                     </div>
 
                     <div
                         class="g-recaptcha"
-                        data-callback='registered'
-                        data-error-callback='error'
-                        data-expired-callback='expired'
+                        data-callback='__captcha_registered'
+                        data-error-callback='__captcha_error'
+                        data-expired-callback='__captcha_expired'
                         data-sitekey="6LdDH74SAAAAANB5pAQvE3Z-J5Y4WCT7sn_heA5V"
                     ></div>
                     <button type="submit" id="contact-form-button" class="gh-btn gh-btn-block gh-btn-black">
@@ -124,54 +185,4 @@ into the {body} of the default.hbs template --}}
 {{!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs --}}
 {{#contentFor "scripts"}}
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-<script>
-const registered = (a) => console.log('registered', a)
-const error = (a) => console.log('error', a)
-const expired = (a) => console.log('expired', a)
-window.addEventListener("DOMContentLoaded", function() {
-
-    // get the form elements defined in your form HTML above
-    const name = 'contact-form';
-    var form = document.getElementById(name);
-    var button = document.getElementById(name + "-button");
-    var status = document.getElementById(name + "-status");
-
-    // Success and Error functions for after the form is submitted
-
-    function success() {
-        form.reset();
-        button.style = "display: none ";
-        status.innerHTML = "Thanks!";
-    }
-
-    function error() {
-        status.innerHTML = "Oops! There was a problem.";
-    }
-
-    // handle the form submission event
-
-    form.addEventListener("submit", function(ev) {
-        ev.preventDefault();
-        var data = new FormData(form);
-        ajax(form.method, form.action, data, success, error);
-    });
-});
-
-  // helper function for sending an AJAX request
-
-function ajax(method, url, data, success, error) {
-    var xhr = new XMLHttpRequest();
-    xhr.open(method, url);
-    xhr.setRequestHeader("Accept", "application/json");
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState !== XMLHttpRequest.DONE) return;
-        if (xhr.status === 200) {
-            success(xhr.response, xhr.responseType);
-        } else {
-            error(xhr.status, xhr.response, xhr.responseType);
-        }
-    };
-    xhr.send(data);
-}
-</script>
 {{/contentFor}}
