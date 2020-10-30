@@ -1,0 +1,177 @@
+{{!< default}}
+{{!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template --}}
+
+{{!-- The big featured header, it uses blog cover image as a BG if available --}}
+<header class="site-header">
+    <div class="outer site-nav-main">
+        <div class="inner">
+            {{> "site-nav"}}
+        </div>
+    </div>
+</header>
+
+<style>
+.page-contact {
+  text-align: center;
+}
+.page-contact table {
+  margin: 0 auto;
+  min-width: 400px;
+}
+.page-contact table a,
+.page-contact table button {
+  margin: 0.5rem; 
+}
+#contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+#contact-form label,
+#contact-form input,
+#contact-form textarea {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+#contact-form .form-group { 
+  margin-bottom: 1rem;
+}
+.g-recaptcha {
+  display: block;
+  margin: 1.5rem;
+}
+.g-recaptcha > div {
+  margin: 0 auto;
+}
+</style>
+
+{{!-- Everything inside the #post tags pulls data from the post --}}
+{{#post}}
+
+<main id="site-main" class="site-main outer">
+    <div class="inner">
+
+        <article class="post-full {{post_class}} {{#unless feature_image}}no-image{{/unless}}">
+
+            <header class="post-full-header">
+                <h1 class="post-full-title">{{title}}</h1>
+            </header>
+
+            {{#if feature_image}}
+            <figure class="post-full-image">
+                {{!-- This is a responsive image, it loads different sizes depending on device
+                https://medium.freecodecamp.org/a-guide-to-responsive-images-with-ready-to-use-templates-c400bd65c433 --}}
+                <img
+                    srcset="{{img_url feature_image size="s"}} 300w,
+                            {{img_url feature_image size="m"}} 600w,
+                            {{img_url feature_image size="l"}} 1000w,
+                            {{img_url feature_image size="xl"}} 2000w"
+                    sizes="(max-width: 800px) 400px,
+                            (max-width: 1170px) 700px,
+                            1400px"
+                    src="{{img_url feature_image size="xl"}}"
+                    data-src="{{img_url feature_image size="xl"}}"
+                    alt="{{title}}"
+                />
+            </figure>
+            {{/if}}
+
+            <section class="page-contact">
+                <form id="contact-form" action="https://formspree.io/mlepjwnk" method="POST">
+                    <p>Send us your suggestions, ideas, queries and collaboration proposals via this form</p>
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input type="email" name="email" class="subscribe-email" />
+                    </div>
+                    <div class="form-group">
+                        <label>Message:</label>
+                        <textarea name="message" class="subscribe-email" rows="4"></textarea>
+                    </div>
+                  
+                    <div
+                      class="g-recaptcha"
+                      data-callback=''
+                      data-error-callback=''
+                      data-expired-callback=''
+                      data-sitekey="6LdDH74SAAAAANB5pAQvE3Z-J5Y4WCT7sn_heA5V"
+                    ></div>
+                    <button
+                      type="submit"
+                      id="contact-form-button"
+                      class="gh-btn gh-btn-block gh-btn-black">
+                        <span>Submit</span>
+                    </button>
+                    <p id="contact-form-status"></p>
+                </form>
+                <hr />
+                <h2>Our Stack:</h2>
+                <table>
+                    <tbody>
+                        <tr><th>Infrastructure</th><td><a href="https://m.do.co/c/635653da0b3b" class="gh-btn gh-btn-block gh-btn-blue"><span>Digital Ocean</span></a></td></tr>
+                        <tr><th>Backend</th><td><a href="https://nodejs.org" class="gh-btn gh-btn-block gh-btn-green" target="_blank"><span>Node.js</span></a></td></tr>
+                        <tr><th>CMS</th><td><a href="https://ghost.org" class="gh-btn gh-btn-block gh-btn-red"><span>Ghost</span></a></td></tr>
+                        <tr><th>Emails</th><td><a href="https://mailgun.com" class="gh-btn gh-btn-block gh-btn-black" target="_blank"><span>Mailgun</span></a></td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+        </article>
+        {{> "ad"}}
+
+    </div>
+</main>
+
+{{/post}}
+
+{{!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs --}}
+{{#contentFor "scripts"}}
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script>
+  window.addEventListener("DOMContentLoaded", function() {
+
+    // get the form elements defined in your form HTML above
+    const name = 'contact-form';
+    var form = document.getElementById(name);
+    var button = document.getElementById(name + "-button");
+    var status = document.getElementById(name + "-status");
+
+    // Success and Error functions for after the form is submitted
+    
+    function success() {
+      form.reset();
+      button.style = "display: none ";
+      status.innerHTML = "Thanks!";
+    }
+
+    function error() {
+      status.innerHTML = "Oops! There was a problem.";
+    }
+
+    // handle the form submission event
+
+    form.addEventListener("submit", function(ev) {
+      ev.preventDefault();
+      var data = new FormData(form);
+      ajax(form.method, form.action, data, success, error);
+    });
+  });
+  
+  // helper function for sending an AJAX request
+
+  function ajax(method, url, data, success, error) {
+    var xhr = new XMLHttpRequest();
+    xhr.open(method, url);
+    xhr.setRequestHeader("Accept", "application/json");
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState !== XMLHttpRequest.DONE) return;
+      if (xhr.status === 200) {
+        success(xhr.response, xhr.responseType);
+      } else {
+        error(xhr.status, xhr.response, xhr.responseType);
+      }
+    };
+    xhr.send(data);
+  }
+</script>
+{{/contentFor}}
