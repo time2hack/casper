@@ -21,7 +21,7 @@ into the {body} of the default.hbs template --}}
 }
 .page-contact table a,
 .page-contact table button {
-  margin: 0.5rem; 
+  margin: 0.5rem;
 }
 #contact-form {
   max-width: 600px;
@@ -34,7 +34,7 @@ into the {body} of the default.hbs template --}}
   width: 100%;
   text-align: center;
 }
-#contact-form .form-group { 
+#contact-form .form-group {
   margin-bottom: 1rem;
 }
 .g-recaptcha {
@@ -88,18 +88,15 @@ into the {body} of the default.hbs template --}}
                         <label>Message:</label>
                         <textarea name="message" class="subscribe-email" rows="4"></textarea>
                     </div>
-                  
+
                     <div
-                      class="g-recaptcha"
-                      data-callback=''
-                      data-error-callback=''
-                      data-expired-callback=''
-                      data-sitekey="6LdDH74SAAAAANB5pAQvE3Z-J5Y4WCT7sn_heA5V"
+                        class="g-recaptcha"
+                        data-callback='registered'
+                        data-error-callback='error'
+                        data-expired-callback='expired'
+                        data-sitekey="6LdDH74SAAAAANB5pAQvE3Z-J5Y4WCT7sn_heA5V"
                     ></div>
-                    <button
-                      type="submit"
-                      id="contact-form-button"
-                      class="gh-btn gh-btn-block gh-btn-black">
+                    <button type="submit" id="contact-form-button" class="gh-btn gh-btn-block gh-btn-black">
                         <span>Submit</span>
                     </button>
                     <p id="contact-form-status"></p>
@@ -128,7 +125,10 @@ into the {body} of the default.hbs template --}}
 {{#contentFor "scripts"}}
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script>
-  window.addEventListener("DOMContentLoaded", function() {
+const registered = (a) => console.log('registered', a)
+const error = (a) => console.log('error', a)
+const expired = (a) => console.log('expired', a)
+window.addEventListener("DOMContentLoaded", function() {
 
     // get the form elements defined in your form HTML above
     const name = 'contact-form';
@@ -137,41 +137,41 @@ into the {body} of the default.hbs template --}}
     var status = document.getElementById(name + "-status");
 
     // Success and Error functions for after the form is submitted
-    
+
     function success() {
-      form.reset();
-      button.style = "display: none ";
-      status.innerHTML = "Thanks!";
+        form.reset();
+        button.style = "display: none ";
+        status.innerHTML = "Thanks!";
     }
 
     function error() {
-      status.innerHTML = "Oops! There was a problem.";
+        status.innerHTML = "Oops! There was a problem.";
     }
 
     // handle the form submission event
 
     form.addEventListener("submit", function(ev) {
-      ev.preventDefault();
-      var data = new FormData(form);
-      ajax(form.method, form.action, data, success, error);
+        ev.preventDefault();
+        var data = new FormData(form);
+        ajax(form.method, form.action, data, success, error);
     });
-  });
-  
+});
+
   // helper function for sending an AJAX request
 
-  function ajax(method, url, data, success, error) {
+function ajax(method, url, data, success, error) {
     var xhr = new XMLHttpRequest();
     xhr.open(method, url);
     xhr.setRequestHeader("Accept", "application/json");
     xhr.onreadystatechange = function() {
-      if (xhr.readyState !== XMLHttpRequest.DONE) return;
-      if (xhr.status === 200) {
-        success(xhr.response, xhr.responseType);
-      } else {
-        error(xhr.status, xhr.response, xhr.responseType);
-      }
+        if (xhr.readyState !== XMLHttpRequest.DONE) return;
+        if (xhr.status === 200) {
+            success(xhr.response, xhr.responseType);
+        } else {
+            error(xhr.status, xhr.response, xhr.responseType);
+        }
     };
     xhr.send(data);
-  }
+}
 </script>
 {{/contentFor}}
