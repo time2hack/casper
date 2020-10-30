@@ -45,7 +45,7 @@ into the {body} of the default.hbs template --}}
   margin: 0 auto;
 }
 .stack-items a {
-    background: #fefefe;
+    background: #eaebed;
     border: 1px solid #ccc;
     box-shadow: 0 0 17px 5px rgba(100, 100, 100, 0.3);
     display: inline-block;
@@ -56,6 +56,10 @@ into the {body} of the default.hbs template --}}
     max-height: 50px;
     width: auto;
     margin: 10px 20px;
+}
+.stack-item-ghost {
+    margin: 0;
+    max-height: 70px;
 }
 </style>
 
@@ -178,16 +182,16 @@ function ajax(method, url, data, success, error) {
                 <hr />
                 <h2>Our Stack:</h2>
                 <div class='stack-items'>
-                    <a href="https://bit.ly/3mAWB9C" >
+                    <a href="https://bit.ly/3mAWB9C" class='stack-item stack-item-digital-ocean'>
                         <img src="https://res.cloudinary.com/time2hack/image/upload/q_auto:good,f_auto/DigitalOcean_logo.png" />
                     </a>
-                    <a href="https://nodejs.org" >
+                    <a href="https://nodejs.org" class='stack-item stack-item-nodejs'>
                         <img src="https://res.cloudinary.com/time2hack/image/upload/q_auto:good,f_auto/Ghost-Logo.png" />
                     </a>
-                    <a href="https://ghost.org" >
+                    <a href="https://ghost.org" class='stack-item stack-item-ghost'>
                         <img src="https://res.cloudinary.com/time2hack/image/upload/q_auto:good,f_auto/mailgun-logo.png" />
                     </a>
-                    <a href="https://mailgun.com" >
+                    <a href="https://mailgun.com" class='stack-item stack-item-mailgun'>
                         <img src="https://res.cloudinary.com/time2hack/image/upload/q_auto:good,f_auto/Node_logo_NodeJS.png" />
                     </a>
                 </div>
