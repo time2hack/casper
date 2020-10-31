@@ -46,11 +46,15 @@ into the {body} of the default.hbs template --}}
 }
 .stack-items a {
     background: #eaebed;
-    border: 1px solid #ccc;
-    box-shadow: 0 0 17px 5px rgba(100, 100, 100, 0.3);
+    border: 1px solid #ddd;
+    box-shadow: 0 0 17px -2px rgba(100, 100, 100, 0.25);
     display: inline-block;
     margin: 10px;
     border-radius: 5px;
+    transition: all ease .5s;
+}
+.stack-items a:hover {
+    box-shadow: 0px 3px 19px 2px rgba(100, 100, 100, 0.35);
 }
 .stack-items a img {
     max-height: 50px;
@@ -67,13 +71,13 @@ into the {body} of the default.hbs template --}}
 {{#post}}
 
 <script>
-window.__captcha_registered = (a) => {}
-window.__captcha_error = (a) => {}
-window.__captcha_expired = (a) => {}
+window.__captcha_registered = () => {}
+window.__captcha_error = () => {}
+window.__captcha_expired = () => {}
 window.addEventListener("DOMContentLoaded", function() {
 
     // get the form elements defined in your form HTML above
-    const name = 'contact-form';
+    var name = 'contact-form';
     var form = document.getElementById(name);
     var button = document.getElementById(name + "-button");
     var status = document.getElementById(name + "-status");
@@ -90,17 +94,33 @@ window.addEventListener("DOMContentLoaded", function() {
         status.innerHTML = "Oops! There was a problem.";
     }
 
-    // handle the form submission event
+
+    var objectFromFormData = (formData) => {
+        var values = {};
+        for (let [key, value] of formData.entries()) {
+            if (values[key]) {
+                if (!(values[key] instanceof Array)) {
+                    values[key] = new Array(values[key]);
+                }
+            values[key].push(value);
+            } else {
+                values[key] = value;
+            }
+        }
+        return values;
+    };
+
 
     form.addEventListener("submit", function(ev) {
         ev.preventDefault();
-        const cap = document.querySelector('#g-recaptcha-response')
+        var cap = document.querySelector('#g-recaptcha-response')
         if (!cap || !cap.value) {
-          alert('Please verify reCaptcha!')
-          return
+            alert('Please verify reCaptcha!')
+            return
         }
         var data = new FormData(form);
-        ajax(form.method, form.action, data, success, error);
+        var url = 'https://t2h-contact-form.netlify.app/.netlify/functions/contact-form'
+        ajax(form.method, url, JSON.stringify(objectFromFormData(data)), success, error);
     });
 });
 
@@ -110,6 +130,7 @@ function ajax(method, url, data, success, error) {
     var xhr = new XMLHttpRequest();
     xhr.open(method, url);
     xhr.setRequestHeader("Accept", "application/json");
+    xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function() {
         if (xhr.readyState !== XMLHttpRequest.DONE) return;
         if (xhr.status === 200) {
@@ -151,11 +172,11 @@ function ajax(method, url, data, success, error) {
             {{/if}}
 
             <section class="page-contact">
-                <form id="contact-form" action="https://formspree.io/mlepjwnk" method="POST">
+                <form id="contact-form" method="POST">
                     <p>Send us your suggestions, ideas, queries and collaboration proposals via this form</p>
                     <div class="form-group">
                         <label>Your Name:</label>
-                        <input type="email" name="email" class="subscribe-email" />
+                        <input type="name" name="name" class="subscribe-email" />
                     </div>
                     <div class="form-group">
                         <label>Your Email:</label>
@@ -195,18 +216,6 @@ function ajax(method, url, data, success, error) {
                         <img src="https://res.cloudinary.com/time2hack/image/upload/q_auto:good,f_auto/Node_logo_NodeJS.png" />
                     </a>
                 </div>
-                {{!-- <table>
-                    <tbody>
-                        <tr><th>Infrastructure</th><td>
-                            <a href="https://m.do.co/c/635653da0b3b" class="gh-btn gh-btn-block gh-btn-blue"><span>Digital Ocean</span></a></td></tr>
-                        <tr><th>Backend</th><td>
-                            <a href="https://nodejs.org" class="gh-btn gh-btn-block gh-btn-green" target="_blank"><span>Node.js</span></a></td></tr>
-                        <tr><th>CMS</th><td>
-                            <a href="https://ghost.org" class="gh-btn gh-btn-block gh-btn-red"><span>Ghost</span></a></td></tr>
-                        <tr><th>Emails</th><td>
-                            <a href="https://mailgun.com" class="gh-btn gh-btn-block gh-btn-black" target="_blank"><span>Mailgun</span></a></td></tr>
-                    </tbody>
-                </table> --}}
             </section>
 
         </article>
