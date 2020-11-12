@@ -45,6 +45,8 @@
 }
 </style>
 <script>
+var subscribePortal = '#subscribe'
+var timeoutForNotification = 15000
 document.addEventListener('DOMContentLoaded', function() {
     const notification = document.querySelector('#subscribe-notification')
     const toggleNotification = function() {
@@ -66,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
     yes && yes.addEventListener('click', function () {
         toggleNotification()
         const loc = window.location;
-        window.location.href = loc.origin + loc.pathname + '#subscribe';
+        window.location.href = loc.origin + loc.pathname + subscribePortal;
         ga && ga('send', 'event', {
             eventCategory: 'Notification',
             eventAction: 'notification_yes'
