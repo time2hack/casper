@@ -1,12 +1,11 @@
 <div class="notification" id='subscribe-notification'>
     <div class="notification-content">
-        Hey There! You have made it this far.
-        <br/>
-        Would you like to subscribe via email?
+        <p>Hey There! You have made it this far.</p>
+        <p>Would you like to subscribe via email?</p>
     </div>
     <div class="notification-footer">
-        <button id='yeah'>Yeah, Sure!</button>
-        <button id='nope'>Nah! I am Good.</button>
+        <button id='yes'>Yes Please!</button>
+        <button id='no'>I'm Good.</button>
     </div>
 </div>
 <style>
@@ -26,6 +25,9 @@
     transition: all ease 500ms;
     box-shadow: 0 0 25px 5px rgba(100, 100, 100, 0.45);
 }
+.notification-content p {
+    margin-bottom: 0;
+}
 .notification.active {
 	bottom: 10px;
 }
@@ -35,8 +37,22 @@
 .notification-footer button {
     margin: 0 0.25em;
     flex: 1 auto;
-    border-radius: 0.75rem;
+    border-radius: 5px;
     padding: 0.3rem 1rem;
+    background: var(--blue);
+    color: #fff;
+    transition: all ease 200ms;
+}
+.notification-footer button#no {
+    background: var(--whitegrey);
+    color: var(--midgrey);
+}
+.notification-footer button#no:hover {
+    transform: scale(0.95);
+}
+.notification-footer button#yes:hover {
+    transform: scale(1.05);
+    background: var(--pink);
 }
 .notification-footer {
     display: flex;
@@ -62,8 +78,8 @@ document.addEventListener('DOMContentLoaded', function() {
             eventAction: 'notification_seen'
         });
     }, 15000);
-    const yes = document.querySelector('#yeah')
-    const no = document.querySelector('#nope')
+    const yes = document.querySelector('#yes')
+    const no = document.querySelector('#no')
 
     yes && yes.addEventListener('click', function () {
         toggleNotification()
