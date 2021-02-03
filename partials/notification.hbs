@@ -77,6 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
             eventCategory: 'Notification',
             eventAction: 'notification_seen'
         });
+        window.splitbee && window.splitbee.track('Notification', {type: 'seen'})
     }, 15000);
     const yes = document.querySelector('#yes')
     const no = document.querySelector('#no')
@@ -89,6 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
             eventCategory: 'Notification',
             eventAction: 'notification_yes'
         });
+        window.splitbee && window.splitbee.track('Notification', {type: 'answer-yes'})
     })
     no && no.addEventListener('click', function () {
         toggleNotification()
@@ -96,6 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
             eventCategory: 'Notification',
             eventAction: 'notification_no'
         });
+        window.splitbee && window.splitbee.track('Notification', {type: 'answer-no'})
     })
 })
 </script>
