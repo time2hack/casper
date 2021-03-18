@@ -367,19 +367,37 @@ The knock-on effect of this is ugly browser-scroll bars at the bottom, so 80px o
     text-decoration: none;
 }
 
-.site-nav-logo img {
-    display: block;
-    width: auto;
-    height: 21px;
+.gh-social a {
+    opacity: 0.8
+}
+
+.gh-social a + a {
+    margin-left: 0.8rem;
+}
+
+.gh-social a:hover {
+    opacity: 1;
 }
 
 .site-home-header .site-nav-logo {
     display: none;
 }
 
-.site-nav-content {
-    position: relative;
-    align-self: flex-start;
+.gh-social-facebook svg {
+    height: 20px;
+    width: 20px;
+}
+
+a.gh-head-button {
+    display: block;
+    padding: 8px 15px;
+    color: var(--color-darkgrey);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    font-size: 1.5rem;
+    line-height: 1em;
+    background: #fff;
+    border-radius: 30px;
 }
 
 .nav {
