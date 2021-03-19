@@ -31,6 +31,55 @@ production stylesheet in assets/built/screen.css
 /* ---------------------------------------------------------- */
 @import "global.css";
 
+/* Variables
+/* ---------------------------------------------------------- */
+
+:root {
+    /* OLD VARAIBLES */
+    /* Colours */
+    --blue: #3eb0ef;
+    --green: #a4d037;
+    --purple: #ad26b4;
+    --yellow: #fecd35;
+    --red: #f05230;
+    --darkgrey: #15171A;
+    --midgrey: #738a94;
+    --lightgrey: #c5d2d9;
+    --whitegrey: #e5eff5;
+    --pink: #fa3a57;
+    --brown: #a3821a;
+    --darkmode: color-mod(var(--darkgrey) l(+2%));
+
+    --font-family-default: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    --font-family: var(--font-family-default);
+}
+
+:root {
+
+    /* Colours */
+    --color-green: #a4d037;
+    --color-yellow: #fecd35;
+    --color-red: #f05230;
+    --color-darkgrey: #15171A;
+    --color-midgrey: #738a94;
+    --color-lightgrey: #c5d2d9;
+    --color-wash: #e5eff5;
+    --color-darkmode: #151719;
+
+    /*
+    An accent color is also set by Ghost itself in
+    Ghost Admin > Settings > Brand
+    --ghost-accent-color: {value};
+    You can use this variale throughout your styles
+     */
+
+    /* Fonts */
+    --font-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    --font-serif: Georgia, Times, serif;
+    --font-mono: Menlo, Courier, monospace;
+
+}
+
 body {
     background: #fff;
 }
@@ -54,6 +103,26 @@ body {
 /* 2. Layout - Page building blocks
 /* ---------------------------------------------------------- */
 
+.viewport {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Full width page blocks */
+.outer {
+    position: relative;
+    padding: 0 4vmin;
+}
+
+/* Centered content container blocks */
+.inner {
+    margin: 0 auto;
+    max-width: 1200px;
+    width: 100%;
+}
+
+
 .site-wrapper {
     display: flex;
     flex-direction: column;
@@ -65,28 +134,6 @@ body {
     flex-grow: 1;
 }
 
-/* Full width page blocks */
-.outer {
-    position: relative;
-    padding: 0 5vw;
-}
-
-/* Centered content container blocks */
-.inner {
-    margin: 0 auto;
-    max-width: 1040px;
-    width: 100%;
-}
-
-/* Usage:
-
-<div class="outer">
-    <div class="inner">
-        Centered content
-    </div>
-</div>
-
-*/
 
 /* 3. Special Template Styles
 /* ---------------------------------------------------------- */
@@ -1011,7 +1058,6 @@ make sure this only happens on large viewports / desktop-ish devices.
 }
 
 .post-full-image img {
-    max-width: 1040px;
     width: 100%;
     height: auto;
 }
@@ -1491,6 +1537,59 @@ Usage (In Ghost editor):
     border: color-mod(var(--whitegrey) l(-1%) s(-5%)) 1px solid;
 }
 
+.article {
+    padding: 8vmin 0;
+}
+
+.article-header {
+    padding: 0 0 6vmin 0;
+}
+
+.article-tag {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0 0 0.5rem;
+    color: var(--color-midgrey);
+    font-size: 1.3rem;
+    line-height: 1.4em;
+    letter-spacing: 0.02em;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.article-tag a {
+    color: var(--ghost-accent-color);
+}
+
+.article-title {
+    color: color-mod(var(--color-darkgrey) l(-5%));
+}
+
+.article-excerpt {
+    margin: 0 0 1rem;
+    font-size: 2rem;
+    line-height: 1.4em;
+    opacity: 0.6;
+}
+
+.gh-canvas .article-image {
+    grid-column: wide-start / wide-end;
+    width: 100%;
+    margin: 6vmin 0 0;
+}
+
+.gh-canvas .article-image img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 600px) {
+    .article-excerpt {
+        font-size: 1.8rem;
+    }
+}
 
 /* 7.1. Post Byline
 /* ---------------------------------------------------------- */
@@ -2345,6 +2444,57 @@ Usage (In Ghost editor):
         order: 2;
     }
 }
+
+
+/* 7.4. Read more
+/* ---------------------------------------------------------- */
+
+.read-more-wrap {
+    width: 100%;
+    padding: 4vmin;
+    margin: 0 auto -40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: color-mod(var(--color-darkgrey) l(-5%));
+}
+
+.read-more {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 4vmin;
+}
+
+.read-more .post-card-title {
+    color: #fff;
+    opacity: 0.8;
+}
+
+.read-more .post-card-excerpt {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.read-more .post-card-byline-content a {
+    color: #fff;
+}
+
+
+@media (max-width: 1000px) {
+    .read-more {
+        grid-template-columns: 1fr 1fr;
+    }
+    .read-more article:nth-child(3) {
+        display: none;
+    }
+}
+
+@media (max-width: 700px) {
+    .read-more {
+        grid-template-columns: 1fr;
+    }
+    .read-more article:nth-child(2) {
+        display: none;
+    }
+}
+
 
 /* 8. Author Template
 /* ---------------------------------------------------------- */

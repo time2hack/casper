@@ -1,9 +1,9 @@
 name: Deploy Theme
 on:
-  push:	
-    branches:	
-      - master
-      - main
+  push:
+    branches:
+      - t2h
+
 jobs:
   deploy:
     runs-on: ubuntu-18.04
