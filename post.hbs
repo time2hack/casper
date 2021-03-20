@@ -44,7 +44,12 @@ into the {body} tag of the default.hbs template --}}
                         <time class="byline-meta-date" datetime="{{date format="YYYY-MM-DD"}}">{{date}}</time>
                         <span class="byline-reading-time"><span class="bull">&bull;</span> {{reading_time}}</span>
                     </div>
+                    {{> byline-meta container='div'}}
                 </div>
+            </section>
+
+            <section class="sharing">
+              {{> share}}
             </section>
         </div>
 

@@ -17,7 +17,6 @@ which templates loop over to generate a list of posts. --}}
             alt="{{title}}"
             loading="lazy"
         />
-        {{!-- <svg class="loader-svg" width="1800px" height="826px" viewBox="0 0 1800 826"><use xlink:href="#loader"></use></svg> --}}
     </a>
     {{/if}}
 
@@ -59,6 +58,7 @@ which templates loop over to generate a list of posts. --}}
             <div class="post-card-byline-content">
                 <span>{{#has author="count:>2"}}Multiple authors{{else}}{{authors}}{{/has}}</span>
                 <span class="post-card-byline-date"><time datetime="{{date format="YYYY-MM-DD"}}">{{date}}</time> <span class="bull">&bull;</span> {{reading_time}}</span>
+                {{> byline-meta container='span'}}
             </div>
         </footer>
 

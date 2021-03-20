@@ -3,13 +3,6 @@
 into the {body} of the default.hbs template --}}
 
 {{!-- The big featured header, it uses blog cover image as a BG if available --}}
-<header class="site-header">
-    <div class="outer site-nav-main">
-        <div class="inner">
-            {{> "site-nav"}}
-        </div>
-    </div>
-</header>
 
 <style>
 .page-contact {
@@ -70,6 +63,86 @@ into the {body} of the default.hbs template --}}
 {{!-- Everything inside the #post tags pulls data from the post --}}
 {{#post}}
 
+<article class="article {{post_class}} page-contact">
+
+    <header class="article-header gh-canvas">
+        {{#if feature_image}}
+        <figure class="article-image">
+            {{!-- This is a responsive image, it loads different sizes depending on device
+            https://medium.freecodecamp.org/a-guide-to-responsive-images-with-ready-to-use-templates-c400bd65c433 --}}
+            <img
+                srcset="{{img_url feature_image size="s"}} 300w,
+                        {{img_url feature_image size="m"}} 600w,
+                        {{img_url feature_image size="l"}} 1000w,
+                        {{img_url feature_image size="xl"}} 2000w"
+                sizes="(min-width: 1400px) 1400px, 92vw"
+                src="{{img_url feature_image size="xl"}}"
+                alt="{{title}}"
+            />
+        </figure>
+        {{/if}}
+    </header>
+
+    <section class="gh-content gh-canvas">
+
+        <h1 class="article-title">{{title}}</h1>
+
+        <form id="contact-form" method="POST">
+            <p>Send us your suggestions, ideas, queries and collaboration proposals via this form</p>
+            <div class="form-group">
+                <label>Your Name:</label>
+                <input type="name" name="name" class="subscribe-email" />
+            </div>
+            <div class="form-group">
+                <label>Your Email:</label>
+                <small>(We will send a copy of this message to you)</small>
+                <input type="email" name="email" class="subscribe-email" />
+            </div>
+            <div class="form-group">
+                <label>Message:</label>
+                <textarea name="message" class="subscribe-email" rows="6"></textarea>
+            </div>
+
+            <div
+                class="g-recaptcha"
+                data-callback='__captcha_registered'
+                data-error-callback='__captcha_error'
+                data-expired-callback='__captcha_expired'
+                data-sitekey="6LdDH74SAAAAANB5pAQvE3Z-J5Y4WCT7sn_heA5V"
+            ></div>
+            <button type="submit" id="contact-form-button" class="gh-btn gh-btn-block gh-btn-black">
+                <span>Submit</span>
+            </button>
+            <p id="contact-form-status"></p>
+        </form>
+        <hr />
+        <h2>Our Stack:</h2>
+        <div class='stack-items'>
+            <a href="https://bit.ly/3mAWB9C" class='stack-item stack-item-digital-ocean'>
+                <img src="https://res.cloudinary.com/time2hack/image/upload/q_auto:good,f_auto/DigitalOcean_logo.png" />
+            </a>
+            <a href="https://nodejs.org" class='stack-item stack-item-nodejs'>
+                <img src="https://res.cloudinary.com/time2hack/image/upload/q_auto:good,f_auto/Ghost-Logo.png" />
+            </a>
+            <a href="https://ghost.org" class='stack-item stack-item-ghost'>
+                <img src="https://res.cloudinary.com/time2hack/image/upload/q_auto:good,f_auto/mailgun-logo.png" />
+            </a>
+            <a href="https://mailgun.com" class='stack-item stack-item-mailgun'>
+                <img src="https://res.cloudinary.com/time2hack/image/upload/q_auto:good,f_auto/Node_logo_NodeJS.png" />
+            </a>
+        </div>
+
+    </section>
+
+</article>
+
+{{> "ad"}}
+
+{{/post}}
+
+{{!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs --}}
+{{#contentFor "scripts"}}
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script>
 window.__captcha_registered = () => {}
 window.__captcha_error = () => {}
@@ -142,91 +215,4 @@ function ajax(method, url, data, success, error) {
     xhr.send(data);
 }
 </script>
-
-<main id="site-main" class="site-main outer">
-    <div class="inner">
-
-        <article class="post-full {{post_class}} {{#unless feature_image}}no-image{{/unless}}">
-
-            <header class="post-full-header">
-                <h1 class="post-full-title">{{title}}</h1>
-            </header>
-
-            {{#if feature_image}}
-            <figure class="post-full-image">
-                {{!-- This is a responsive image, it loads different sizes depending on device
-                https://medium.freecodecamp.org/a-guide-to-responsive-images-with-ready-to-use-templates-c400bd65c433 --}}
-                <img
-                    srcset="{{img_url feature_image size="s"}} 300w,
-                            {{img_url feature_image size="m"}} 600w,
-                            {{img_url feature_image size="l"}} 1000w,
-                            {{img_url feature_image size="xl"}} 2000w"
-                    sizes="(max-width: 800px) 400px,
-                            (max-width: 1170px) 700px,
-                            1400px"
-                    src="{{img_url feature_image size="xl"}}"
-                    data-src="{{img_url feature_image size="xl"}}"
-                    alt="{{title}}"
-                />
-            </figure>
-            {{/if}}
-
-            <section class="page-contact">
-                <form id="contact-form" method="POST">
-                    <p>Send us your suggestions, ideas, queries and collaboration proposals via this form</p>
-                    <div class="form-group">
-                        <label>Your Name:</label>
-                        <input type="name" name="name" class="subscribe-email" />
-                    </div>
-                    <div class="form-group">
-                        <label>Your Email:</label>
-                        <small>(We will send a copy of this message to you)</small>
-                        <input type="email" name="email" class="subscribe-email" />
-                    </div>
-                    <div class="form-group">
-                        <label>Message:</label>
-                        <textarea name="message" class="subscribe-email" rows="6"></textarea>
-                    </div>
-
-                    <div
-                        class="g-recaptcha"
-                        data-callback='__captcha_registered'
-                        data-error-callback='__captcha_error'
-                        data-expired-callback='__captcha_expired'
-                        data-sitekey="6LdDH74SAAAAANB5pAQvE3Z-J5Y4WCT7sn_heA5V"
-                    ></div>
-                    <button type="submit" id="contact-form-button" class="gh-btn gh-btn-block gh-btn-black">
-                        <span>Submit</span>
-                    </button>
-                    <p id="contact-form-status"></p>
-                </form>
-                <hr />
-                <h2>Our Stack:</h2>
-                <div class='stack-items'>
-                    <a href="https://bit.ly/3mAWB9C" class='stack-item stack-item-digital-ocean'>
-                        <img src="https://res.cloudinary.com/time2hack/image/upload/q_auto:good,f_auto/DigitalOcean_logo.png" />
-                    </a>
-                    <a href="https://nodejs.org" class='stack-item stack-item-nodejs'>
-                        <img src="https://res.cloudinary.com/time2hack/image/upload/q_auto:good,f_auto/Ghost-Logo.png" />
-                    </a>
-                    <a href="https://ghost.org" class='stack-item stack-item-ghost'>
-                        <img src="https://res.cloudinary.com/time2hack/image/upload/q_auto:good,f_auto/mailgun-logo.png" />
-                    </a>
-                    <a href="https://mailgun.com" class='stack-item stack-item-mailgun'>
-                        <img src="https://res.cloudinary.com/time2hack/image/upload/q_auto:good,f_auto/Node_logo_NodeJS.png" />
-                    </a>
-                </div>
-            </section>
-
-        </article>
-        {{> "ad"}}
-
-    </div>
-</main>
-
-{{/post}}
-
-{{!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs --}}
-{{#contentFor "scripts"}}
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 {{/contentFor}}
