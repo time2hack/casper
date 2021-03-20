@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<html lang="{{@site.lang}}">
+<html lang="{{@site.locale}}">
 <head>
 
-    {{!-- Document Settings --}}
+    {{!-- Basic meta - advanced meta is output with {ghost_head} below --}}
+    <title>{{meta_title}}</title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-    {{!-- Base Meta --}}
-    <title>{{meta_title}}</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200;1,300;1,400;1,600;1,700&display=fallback" rel="stylesheet">
 
-    {{!-- Styles'n'Scripts --}}
     {{!-- <link rel="stylesheet" type="text/css" href="{{asset "built/global.css"}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset "built/screen.css"}}" />
     <link rel="stylesheet" type="text/css" href="{{asset "built/t2h.css"}}" /> --}}
+    {{!-- Theme assets - use the {asset} helper to reference styles & scripts,
+    this will take care of caching and cache-busting automatically --}}
+    {{!-- <link rel="stylesheet" type="text/css" href="{{asset "built/screen.css"}}" /> --}}
     <link rel="stylesheet" type="text/css" href="{{asset "built/casper-t2h.css"}}" />
 
-    {{!-- This tag outputs SEO meta+structured data and other important settings --}}
+    {{!-- This tag outputs all your advanced SEO meta, structured data, and other important settings,
+    it should always be the last tag before the closing head tag --}}
     {{ghost_head}}
 
     {{> "tags-meta-fixes"}}
@@ -27,119 +27,87 @@
 
 </head>
 <body class="{{body_class}}">
+<div class="viewport">
 
-    {{> "icons/all-in-one" }}
+    <header id="gh-head" class="gh-head {{#if @site.cover_image}}has-cover{{/if}}">
+        <nav class="gh-head-inner inner gh-container">
 
-    <div class="site-wrapper">
+            <div class="gh-head-brand">
+                <a class="gh-head-logo" href="{{@site.url}}">
+                    {{#if @site.logo}}
+                        <img src="{{@site.logo}}" alt="{{@site.title}}" />
+                    {{else}}
+                        {{@site.title}}
+                    {{/if}}
+                </a>
+                <a class="gh-burger" role="button">
+                    <div class="gh-burger-box">
+                        <div class="gh-burger-inner"></div>
+                    </div>
+                </a>
+            </div>
+            <div class="gh-head-menu">
+                {{navigation}}
+            </div>
+            <div class="gh-head-actions">
+                <div class="gh-social">
+                    {{#if @site.facebook}}
+                        <a class="gh-social-facebook" href="{{facebook_url @site.facebook}}" title="Facebook" target="_blank" rel="noopener">{{> "icons/facebook"}}</a>
+                    {{/if}}
+                    {{#if @site.twitter}}
+                        <a class="gh-social-twitter" href="{{twitter_url @site.twitter}}" title="Twitter" target="_blank" rel="noopener">{{> "icons/twitter"}}</a>
+                    {{/if}}
+                </div>
 
-        {{!-- All the main content gets inserted here, index.hbs, post.hbs, etc --}}
+                {{#unless @member}}
+                    <a class="gh-head-button" href="#/portal">Subscribe</a>
+                {{else}}
+                    <a class="gh-head-button" href="#/portal/account">Account</a>
+                {{/unless}}
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        {{!-- All other templates get inserted here, index.hbs, post.hbs, etc --}}
         {{{body}}}
+    </main>
 
-        {{!-- The footer at the very bottom of the screen --}}
-        <footer class="site-footer outer">
-
-            <div class="site-footer-content inner">
-                <section class="copyright"><a href="{{@site.url}}">{{@site.title}}</a> &copy; {{date format="YYYY"}}</section>
-                <nav class="site-footer-nav">
-                    <a href="{{@site.url}}">Latest Posts</a>
-                    {{#if @site.facebook}}<a href="{{facebook_url @site.facebook}}" target="_blank" rel="noopener">Facebook</a>{{/if}}
-                    {{#if @site.twitter}}<a href="{{twitter_url @site.twitter}}" target="_blank" rel="noopener">Twitter</a>{{/if}}
-                    <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a>
-                </nav>
-            </div>
-        </footer>
-
-    </div>
-
-    {{> notification }}
-
-    {{!-- The big email subscribe modal content --}}
-    {{#if @labs.members}}
-    <div class="subscribe-success-message">
-        <a class="subscribe-close" aria-label="Close" href="javascript:;"></a>
-        You've successfully subscribed to {{@site.title}}!
-    </div>
-
-    <div id="subscribe" class="subscribe-overlay">
-        <a class="subscribe-close-overlay" href="#" aria-label="Close"></a>
-        <a class="subscribe-close-button" href="#">
-            <img src="data:image/svg+xml,%3Csvg height='25' width='25' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23FFF' fill-rule='evenodd' d='M12.5 25C19.404 25 25 19.404 25 12.5S19.404 0 12.5 0 0 5.596 0 12.5 5.596 25 12.5 25zm0-1C18.851 24 24 18.851 24 12.5S18.851 1 12.5 1 1 6.149 1 12.5 6.149 24 12.5 24zm.707-11.5l5.657-5.657-.707-.707-5.657 5.657-5.657-5.657-.707.707 5.657 5.657-5.657 5.657.707.707 5.657-5.657 5.657 5.657.707-.707-5.657-5.657z'/%3E%3C/svg%3E" alt="Close">
-        </a>
-        <div class="subscribe-overlay-content">
-            {{#if @site.logo}}
-                <img class="subscribe-overlay-logo" src="{{@site.logo}}" alt="{{@site.title}}" />
-            {{/if}}
-            <div class="subscribe-form">
-                <h1 class="subscribe-overlay-title">Receive new posts on {{@site.title}} via email</h1>
-                <p class="subscribe-overlay-description">Stay up to date! Get all the latest & greatest posts delivered straight to your inbox</p>
-                <form data-members-form="subscribe">
-                    <label for="subscribe-email">Please enter your email</label>
-                    <div class="form-group">
-                        <input id="subscribe-email" class="subscribe-email" data-members-email placeholder="youremail@example.com" autocomplete="false" />
-                        <button class="button primary" type="submit">
-                            <span class="button-content">Stay in touch</span>
-                            <span class="button-loader">{{> "icons/loader"}}</span>
-                        </button>
-                    </div>
-                    <div class="message-success">
-                        <strong>Great!</strong> Check your inbox and click the link to confirm your subscription.
-                    </div>
-                    <div class="message-error">
-                        Please enter a valid email address!
-                    </div>
-                </form>
-            </div>
+    {{!-- The global footer at the very bottom of the screen --}}
+    <footer class="site-footer outer">
+        <div class="inner">
+            <section class="copyright"><a href="{{@site.url}}">{{@site.title}}</a> &copy; {{date format="YYYY"}}</section>
+            <nav class="site-footer-nav">
+                {{navigation type="secondary"}}
+            </nav>
+            <div><a href="https://ghost.org/" target="_blank" rel="noopener">Powered by Ghost</a></div>
         </div>
-    </aside>
-    {{/if}}
+    </footer>
 
-    {{!-- jQuery, required for fitvids --}}
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"
-        integrity="sha512-/DXTXr6nQodMUiq+IUJYCt2PPOUjrHJ9wFrqpJ3XkgPNOZVfMok7cRw6CSxyCQxXn6ozlESsSh1/sMCTF1rL/g=="
-        crossorigin="anonymous">
-    </script>
-    {{!-- Fitvids (for responsive video embeds), infinite scroll, floating header, and gallery card support --}}
-    <script src="{{asset "built/casper.js"}}"></script>
+</div>
+{{!-- /.viewport --}}
 
-    {{!-- Scripts for Members subscription --}}
-    <script>
-        // Parse the URL parameter
-        function getParameterByName(name, url) {
-            if (!url) url = window.location.href;
-            name = name.replace(/[\[\]]/g, "\\$&");
-            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-                results = regex.exec(url);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, " "));
-        }
 
-        // Give the parameter a variable name
-        var action = getParameterByName('action');
+{{!-- Scripts - handle member signups, responsive videos, infinite scroll, floating headers, and galleries --}}
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"
+    integrity="sha512-/DXTXr6nQodMUiq+IUJYCt2PPOUjrHJ9wFrqpJ3XkgPNOZVfMok7cRw6CSxyCQxXn6ozlESsSh1/sMCTF1rL/g=="
+    crossorigin="anonymous">
+</script>
+<script src="{{asset "built/casper.js"}}"></script>
+<script>
+$(document).ready(function () {
+    // Mobile Menu Trigger
+    $('.gh-burger').click(function () {
+        $('body').toggleClass('gh-head-open');
+    });
+    // FitVids - Makes video embeds responsive
+    $(".gh-content").fitVids();
+});
+</script>
 
-        $(document).ready(function () {
-            if (action == 'subscribe') {
-                $('body').addClass("subscribe-success");
-            }
-
-            $('.subscribe-success-message .subscribe-close').click(function () {
-                $('.subscribe-success-message').addClass('close');
-            });
-
-            // Reset form on opening subscrion overlay
-            $('.subscribe-button').click(function() {
-                $('.subscribe-overlay form').removeClass();
-                $('.subscribe-email').val('');
-            });
-        });
-    </script>
-
-    {{!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. --}}
-    {{{block "scripts"}}}
-
-    {{!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag --}}
-    {{ghost_foot}}
+{{!-- Ghost outputs required functional scripts with this tag - it should always be the last thing before the closing body tag --}}
+{{ghost_foot}}
 
 </body>
 </html>
