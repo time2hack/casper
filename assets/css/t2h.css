@@ -384,7 +384,8 @@ pre {
 
 .post-full-comments {
     max-width: 750px;
-    margin: 1vmin auto;
+    padding: 2vmin;
+    margin: 0 auto;
 }
 /* From Screen.css */
 @media (min-width: 795px){
@@ -1131,7 +1132,9 @@ main a[target="_blank"]:not([class])::after {
     }
 }
 @media (max-width: 700px) {
-
+  .article-byline {
+    flex-direction: column;
+  }
 }
 @media (prefers-color-scheme: dark) {
     .article-tag a, .post-card-primary-tag {

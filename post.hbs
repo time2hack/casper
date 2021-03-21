@@ -156,8 +156,6 @@ should be replaced with your own Disqus site-id.
 
 {{/post}}
 
-{{!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs --}}
-{{#contentFor "scripts"}}
 <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 <script id="all-custom-js-functions">
 var _toArray = function(nodeList) { return Array.prototype.slice.call(nodeList); };
@@ -221,50 +219,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
             preHeadFoot(block);
         }
     });
-    // End CodeBlock Enriching
-
-    var ticking = false;
-
-    function onScroll() {
-        requestTick();
-    }
-
-    function onResize() {
-        requestTick();
-    }
-
-    function requestTick() {
-        if (!ticking) {
-            requestAnimationFrame(update);
-        }
-        ticking = true;
-    }
-
-    function lazyLoad() {
-        var notLoaded = [].slice.call(document.querySelectorAll('.loader'));
-        for(var i = 0; i < notLoaded.length; i++) {
-            var el = notLoaded[i];
-            var pos = el.getBoundingClientRect();
-            if (
-                (pos.top >= 0 && pos.top <= window.innerHeight + 50)
-                || (pos.bottom >= 0 && pos.bottom <= window.innerHeight)
-            ) {
-                el.src = el.getAttribute('data-image');
-                el.classList.remove('loader');
-            }
-        }
-    }
-
-    function update() {
-        lazyLoad();
-        ticking = false;
-    }
-
-    window.addEventListener('scroll', onScroll, {passive: true});
-    window.addEventListener('resize', onResize, false);
-
-    update();
-
 });
 </script>
-{{/contentFor}}

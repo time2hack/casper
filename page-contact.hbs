@@ -140,8 +140,6 @@ into the {body} of the default.hbs template --}}
 
 {{/post}}
 
-{{!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs --}}
-{{#contentFor "scripts"}}
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script>
 window.__captcha_registered = () => {}
@@ -215,4 +213,3 @@ function ajax(method, url, data, success, error) {
     xhr.send(data);
 }
 </script>
-{{/contentFor}}
