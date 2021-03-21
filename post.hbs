@@ -44,7 +44,42 @@ into the {body} tag of the default.hbs template --}}
                         <time class="byline-meta-date" datetime="{{date format="YYYY-MM-DD"}}">{{date}}</time>
                         <span class="byline-reading-time"><span class="bull">&bull;</span> {{reading_time}}</span>
                     </div>
+                    {{> byline-meta container='div'}}
                 </div>
+            </section>
+        </div>
+
+        {{#if feature_image}}
+        <figure class="article-image">
+            {{!-- This is a responsive image, it loads different sizes depending on device
+            https://medium.freecodecamp.org/a-guide-to-responsive-images-with-ready-to-use-templates-c400bd65c433 --}}
+            <img
+                srcset="{{img_url feature_image size="s"}} 300w,
+                        {{img_url feature_image size="m"}} 600w,
+                        {{img_url feature_image size="l"}} 1000w,
+                        {{img_url feature_image size="xl"}} 2000w"
+                sizes="(min-width: 1400px) 1400px, 92vw"
+                src="{{img_url feature_image size="xl"}}"
+                alt="{{title}}"
+            />
+        </figure>
+        {{/if}}
+    </header>
+
+    <section class="gh-content gh-canvas">
+        {{content}}
+    </section>
+
+    {{!--
+    <section class="article-comments gh-canvas">
+        If you want to embed comments, this is a good place to paste your code!
+    </section>
+    --}}
+
+</article>
+
+            <section class="sharing">
+              {{> share}}
             </section>
         </div>
 
@@ -151,8 +186,6 @@ should be replaced with your own Disqus site-id.
 
 {{/post}}
 
-{{!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs --}}
-{{#contentFor "scripts"}}
 <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 <script id="all-custom-js-functions">
 var _toArray = function(nodeList) { return Array.prototype.slice.call(nodeList); };
@@ -216,50 +249,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
             preHeadFoot(block);
         }
     });
-    // End CodeBlock Enriching
-
-    var ticking = false;
-
-    function onScroll() {
-        requestTick();
-    }
-
-    function onResize() {
-        requestTick();
-    }
-
-    function requestTick() {
-        if (!ticking) {
-            requestAnimationFrame(update);
-        }
-        ticking = true;
-    }
-
-    function lazyLoad() {
-        var notLoaded = [].slice.call(document.querySelectorAll('.loader'));
-        for(var i = 0; i < notLoaded.length; i++) {
-            var el = notLoaded[i];
-            var pos = el.getBoundingClientRect();
-            if (
-                (pos.top >= 0 && pos.top <= window.innerHeight + 50)
-                || (pos.bottom >= 0 && pos.bottom <= window.innerHeight)
-            ) {
-                el.src = el.getAttribute('data-image');
-                el.classList.remove('loader');
-            }
-        }
-    }
-
-    function update() {
-        lazyLoad();
-        ticking = false;
-    }
-
-    window.addEventListener('scroll', onScroll, {passive: true});
-    window.addEventListener('resize', onResize, false);
-
-    update();
-
 });
 </script>
-{{/contentFor}}
