@@ -61,15 +61,19 @@
 }
 </style>
 <script>
-var subscribePortal = '#subscribe'
-var timeoutForNotification = 15000
+var subscribePortal = '#/portal';
+var timeoutForNotification = 20000
 document.addEventListener('DOMContentLoaded', function() {
     const notification = document.querySelector('#subscribe-notification')
     const toggleNotification = function() {
         notification.classList.toggle('active')
     }
     notification && setTimeout(function() {
-        if (window.location.hash === '#subscribe') {
+        var subStatus = storage.getItem('sub'); // start, success, abort, confirmed
+        if (['success', 'confirmed'].includes(subStatus)) {
+          return
+        }
+        if (window.location.hash === '#/portal') {
             return
         }
         toggleNotification()
@@ -78,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
             eventAction: 'notification_seen'
         });
         window.splitbee && window.splitbee.track('NotificationSeen')
-    }, 15000);
+    }, timeoutForNotification);
     const yes = document.querySelector('#yes')
     const no = document.querySelector('#no')
 

@@ -683,18 +683,6 @@ fieldset[disabled] .gh-btn {
     }
 }
 
-.gh-btn-group {
-    margin-top: 3rem
-}
-
-.gh-btn-group .gh-btn:first-of-type {
-    margin-right: 15px
-}
-
-.gh-btn-group .gh-btn span {
-    font-size: 1.4rem
-}
-
 .gh-drop {
     position: relative;
     outline: none;
@@ -1115,6 +1103,11 @@ main a[target="_blank"]:not([class])::after {
     background: rgba(255, 165, 0, .2);
 }
 
+a.gh-head-button {
+  transition: all ease 200ms;
+  background-color: var(--color-yellow, #fff);
+}
+
 @media (max-width: 800px) {
     .gh-content h2 {
         margin-bottom: 0.75em;
@@ -1175,3 +1168,4 @@ main a[target="_blank"]:not([class])::after {
     }
 
 }
+
