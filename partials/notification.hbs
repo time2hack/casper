@@ -62,7 +62,8 @@
 </style>
 <script>
 var subscribePortal = '#/portal';
-var timeoutForNotification = 20000
+var timeoutForNotification = 20000;
+var shouldTrack = false;
 document.addEventListener('DOMContentLoaded', function() {
     const notification = document.querySelector('#subscribe-notification')
     const toggleNotification = function() {
@@ -77,11 +78,11 @@ document.addEventListener('DOMContentLoaded', function() {
             return
         }
         toggleNotification()
-        ga && ga('send', 'event', {
+        window.t2hShouldTrack && ga && ga('send', 'event', {
             eventCategory: 'Notification',
             eventAction: 'notification_seen'
         });
-        window.splitbee && window.splitbee.track('NotificationSeen')
+        window.t2hShouldTrack && window.splitbee && window.splitbee.track('NotificationSeen')
     }, timeoutForNotification);
     const yes = document.querySelector('#yes')
     const no = document.querySelector('#no')
@@ -90,19 +91,19 @@ document.addEventListener('DOMContentLoaded', function() {
         toggleNotification()
         const loc = window.location;
         window.location.href = loc.origin + loc.pathname + subscribePortal;
-        ga && ga('send', 'event', {
+        window.t2hShouldTrack && ga && ga('send', 'event', {
             eventCategory: 'Notification',
             eventAction: 'notification_yes'
         });
-        window.splitbee && window.splitbee.track('NotificationYes')
+        window.t2hShouldTrack && window.splitbee && window.splitbee.track('NotificationYes')
     })
     no && no.addEventListener('click', function () {
         toggleNotification()
-        ga && ga('send', 'event', {
+        window.t2hShouldTrack && ga && ga('send', 'event', {
             eventCategory: 'Notification',
             eventAction: 'notification_no'
         });
-        window.splitbee && window.splitbee.track('NotificationNo')
+        window.t2hShouldTrack && window.splitbee && window.splitbee.track('NotificationNo')
     })
 })
 </script>
