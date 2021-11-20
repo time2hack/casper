@@ -109,25 +109,29 @@ should be replaced with your own Disqus site-id.
 
 <section class="post-full-comments">
     <div id="disqus_thread"></div>
+    <div id="commento"></div>
+    <script defer src="https://comments.t2h.app/js/commento.js"></script>
     <script>
         var disqus_config = function () {
             this.page.url = '{{url absolute="true"}}';
             this.page.identifier = 'ghost-{{comment_id}}';
-            this.callbacks.onNewComment = [function(comment) {
-                ga('send', {
-                    'hitType': 'event',
-                    'eventCategory': 'Comments',
-                    'eventAction': 'New Comment',
-                    'eventLabel': 'New Comment'
-                });
-            }];
         };
+        var addDisqus = function() {
+          var d = document, s = d.createElement('script');
+          s.src = 'https://time2hack.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        }
+        var addCommento = function() {
+          var d = document, s = d.createElement('script');
+          s.src = 'https://comments.t2h.app/js/commento.js';
+          s.setAttribute('defer', true);
+          s.setAttribute('data-page-id', 'ghost-{{comment_id}}');
+          (d.head || d.body).appendChild(s);
+        }
         (function() {
             setTimeout(function() {
-                var d = document, s = d.createElement('script');
-                s.src = 'https://time2hack.disqus.com/embed.js';
-                s.setAttribute('data-timestamp', +new Date());
-                (d.head || d.body).appendChild(s);
+                window.__COMMENTO ? addCommento() : addDisqus()
             }, 3000);
         })();
     </script>
