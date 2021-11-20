@@ -130,7 +130,11 @@ should be replaced with your own Disqus site-id.
         }
         (function() {
             setTimeout(function() {
-                window.__COMMENTO ? addCommento() : addDisqus()
+                if (typeof window.__COMMENTO !== 'undefined' && window.__COMMENTO) {
+                  addCommento();
+                  return;
+                }
+                addDisqus();
             }, 3000);
         })();
     </script>
