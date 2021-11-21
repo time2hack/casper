@@ -115,26 +115,24 @@ should be replaced with your own Disqus site-id.
             this.page.url = '{{url absolute="true"}}';
             this.page.identifier = 'ghost-{{comment_id}}';
         };
-        var addDisqus = function() {
-          var d = document, s = d.createElement('script');
+        var attachDisqus = function(s) {
           s.src = 'https://time2hack.disqus.com/embed.js';
           s.setAttribute('data-timestamp', +new Date());
-          (d.head || d.body).appendChild(s);
+          return s;
         }
-        var addCommento = function() {
-          var d = document, s = d.createElement('script');
+        var attachCommento = function(s) {
           s.src = 'https://comments.t2h.app/js/commento.js';
           s.setAttribute('defer', true);
           s.setAttribute('data-page-id', 'ghost-{{comment_id}}');
-          (d.head || d.body).appendChild(s);
+          return s;
         }
         (function() {
             setTimeout(function() {
-                if (typeof window.__COMMENTO !== 'undefined' && window.__COMMENTO) {
-                  addCommento();
-                  return;
-                }
-                addDisqus();
+                var s = (typeof window.__COMMENTO !== 'undefined' && window.__COMMENTO)
+                    ? addCommento(document.createElement('script'))
+                    : addDisqus(document.createElement('script'));
+                console.log(s)
+                (document.head || document.body).appendChild(s);
             }, 3000);
         })();
     </script>
