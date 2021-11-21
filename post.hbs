@@ -116,11 +116,13 @@ should be replaced with your own Disqus site-id.
             this.page.identifier = 'ghost-{{comment_id}}';
         };
         var attachDisqus = function(s) {
+          var s = document.createElement('script')
           s.src = 'https://time2hack.disqus.com/embed.js';
           s.setAttribute('data-timestamp', +new Date());
           return s;
         }
         var attachCommento = function(s) {
+          var s = document.createElement('script')
           s.src = 'https://comments.t2h.app/js/commento.js';
           s.setAttribute('defer', true);
           s.setAttribute('data-page-id', 'ghost-{{comment_id}}');
@@ -129,8 +131,8 @@ should be replaced with your own Disqus site-id.
         (function() {
             setTimeout(function() {
                 var s = (typeof window.__COMMENTO !== 'undefined' && window.__COMMENTO)
-                    ? addCommento(document.createElement('script'))
-                    : addDisqus(document.createElement('script'));
+                    ? addCommento()
+                    : addDisqus();
                 console.log(s)
                 (document.head || document.body).appendChild(s);
             }, 3000);
