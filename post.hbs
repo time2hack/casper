@@ -108,6 +108,7 @@ should be replaced with your own Disqus site-id.
 --}}
 
 <section class="post-full-comments">
+    {{comments}}
     <div id="disqus_thread"></div>
     <div id="commento"></div>
     <script>
@@ -128,14 +129,14 @@ should be replaced with your own Disqus site-id.
           s.setAttribute('data-page-id', 'ghost-{{comment_id}}');
           return s;
         }
-        document.addEventListener('DOMContentLoaded', function () {
-          setTimeout(function() {
-              var s = (typeof window.__COMMENTO !== 'undefined' && window.__COMMENTO)
-                  ? getCommentoScript()
-                  : getDisqusScript();
-              (document.head || document.body).appendChild(s);
-          }, 3000);
-        })
+        //document.addEventListener('DOMContentLoaded', function () {
+          //setTimeout(function() {
+              //var s = (typeof window.__COMMENTO !== 'undefined' && window.__COMMENTO)
+              //    ? getCommentoScript()
+              //    : getDisqusScript();
+              //(document.head || document.body).appendChild(s);
+          //}, 3000);
+        //})
     </script>
 </section>
 
