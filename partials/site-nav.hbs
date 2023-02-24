@@ -24,12 +24,12 @@
                     <a class="social-link social-link-tw" href="{{twitter_url @site.twitter}}" title="Twitter" target="_blank" rel="noopener">{{> "icons/twitter"}}</a>
                 {{/if}}
             </div>
-            {{#unless @labs.members}}
+            {{#unless @site.members_enabled}}
                 <a class="rss-button" href="https://feedly.com/i/subscription/feed/{{@site.url}}/rss/" title="RSS" target="_blank" rel="noopener">{{> "icons/rss"}}</a>
             {{/unless}}
         {{/if}}
 
-        {{#if @labs.members}}
+        {{#if @site.members_enabled}}
             <a class="subscribe-button" href="#subscribe">Stay in touch</a>
         {{/if}}
     </div>
